@@ -177,3 +177,58 @@ methods (witch will determine the behaviour of the object) and relations (with o
 
 It differs from other programming paradigms in tha we have abstractions or encapsulations that allows us to use the program
 without necessarily having to know all the details in how the algorithm works.
+
+### 2. Classes and Objects
+
+- What's a class?
+
+  A class is like a template that we can use to instanciate Objects using constructors.
+
+Example:
+
+    public class person {
+        private String name;  
+        private String lastname;
+        
+        public person () {} //Constructor
+        public person (String name,String lastname) {
+            this.name = name;
+            this.lastname = lastname;
+        }
+        
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setLastname(String name) {
+            this.name = name;
+        }
+    }
+
+- Constructors
+
+  They are used to the constructors in a class to create objects.
+
+
+- Destructors
+
+  They are used to freeing specific resources that objects acquired through their life cycle (For example memory).
+
+
+- Instance method
+  We need to instantiate an object in order to call them.
+
+- Characteristics of methods
+
+  Objects have a state, a performance (dictated by the instance methods and class methods) and references (characteristic
+  or attribute that refers it unequivocally)
+
+- Relationships between objects:
+
+1.  Association: Objects may exist, and they have a completely independent life cycle
+
+
+2. Aggregation: Is has a collaboration of the type "has a"
+
+
+3. Compound: One object stops existing when the other stops existing
