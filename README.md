@@ -547,3 +547,8 @@ YAGNI (you aren't gonna need it) It's thinking about the thing we aren't using a
 #### GRASP
 GRASP (general responsibility assignment) which is a group of concepts that we've already seen. These are good practices
 we've already used, and we group them under a single concept to describe characteristics that have systems.
+
+# Gradle Basics
+
+## 1. Introduction
+Gradle is a Groovy-based build management system designed specifically for building Java-based projects.
