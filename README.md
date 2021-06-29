@@ -167,3 +167,10 @@ del [file_name] deletes a file
 1. Make commits frequently. This way they are easier to patch or revert, and it helps us to work in a more organized way.
 
 2. Never commit work in progress.
+
+## OOP
+
+### 1. Introduction
+
+Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects". Objects can have attributes,
+methods (witch will determine the behaviour of the object) and relations (with other objects).
