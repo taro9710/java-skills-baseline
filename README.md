@@ -695,3 +695,60 @@ Then, we can apply the plugin in the build scripts but only after any existing p
         }
     }
     apply plugin: "org.shipkit.bintray-release"
+
+### 4. Dependency Management
+   Gradle supports very flexible dependency management system, it's compatible with the wide variety of available approaches.
+
+*Best practices for dependency management in Gradle are versioning, dynamic versioning, resolving version conflicts and 
+managing transitive dependencies.*
+
+#### 4.1. Dependency Configuration
+Dependencies are grouped into different configurations. 
+*A configuration has a name and they can extend each other.*
+
+If we apply the Java plugin, we'll have compile, testCompile, runtime configurations available for grouping our dependencies. 
+*The default configuration extends “runtime”.*
+
+#### 4.2. Declaring Dependencies
+Let's look at an example of adding some dependencies (Spring and Hibernate) using several different ways:
+
+    dependencies {
+        compile group: 
+            'org.springframework', name: 'spring-core', version: '4.3.5.RELEASE'
+        compile 'org.springframework:spring-core:4.3.5.RELEASE',
+            'org.springframework:spring-aop:4.3.5.RELEASE'
+        compile(
+            [group: 'org.springframework', name: 'spring-core', version: '4.3.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-aop', version: '4.3.5.RELEASE']
+        )
+        testCompile('org.hibernate:hibernate-core:5.2.12.Final') {
+            transitive = true
+        }
+        runtime(group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final') {
+            transitive = false
+        }
+    }
+
+We're declaring dependencies in various configurations: compile, testCompile, and runtime in various formats.
+
+Sometimes we need dependencies that have multiple artifacts. In such cases, we can add an artifact-only notations 
+@extensionName (or ext in the expanded form) to download the desired artifact:
+
+    runtime "org.codehaus.groovy:groovy-all:2.4.11@jar"
+    runtime group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11', ext: 'jar'
+Here, we added the @jar notation to download only the jar artifact without the dependencies.
+
+To add dependencies to any local files, we can use something like this:
+
+    compile files('libs/joda-time-2.2.jar', 'libs/junit-4.12.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+*When we want to avoid transitive dependencies, we can do it on configuration level or on dependency level:*
+
+    configurations {
+        testCompile.exclude module: 'junit'
+    }
+
+    testCompile("org.springframework.batch:spring-batch-test:3.0.7.RELEASE"){
+        exclude module: 'junit'
+    }
