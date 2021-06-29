@@ -498,4 +498,52 @@ They are like a description or template for how to solve a problem that can be u
 
     - State: Allow an object to alter its behavior when its internal state changes. The object will appear to change
       its class.
-      
+
+
+### 5. SOLID principles
+
+#### What is SOLID?
+
+SOLID principles are some thoughts or lineaments which allow us to have a code much cleaner, more maintainable and
+comprehensible to others. SOLID stands for:
+
+- Single Responsibility
+- Open-close
+- Liskov substitution
+- Interface segregation
+- Dependency injection
+
+#### Single Responsibility principle
+This means that every module must have one and only one responsibility.
+
+#### Open-close principle
+We will be open to extend but close to modify.
+
+#### Liskov substitution principle
+If S is a subtype of T, then objects of type T may be replaced with objects of type S without altering any of the
+desirable properties of the program.
+
+#### Interface Segregation principle
+This principle states that no client should be forced to depend on methods it does not use.
+
+#### Dependency inversion principle
+The principle states:
+
+- High-level modules should not depend on low-level modules. Both should depend on abstractions (like interfaces).
+- Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
+
+### 6. OOP principles
+
+#### KISS
+KISS (Keep it simple). Always think in the simplest solution you can come with and avoid complexity or intricate code.
+
+#### DRY
+DRY (Don't repeat yourself) Try to reuse the code as much as possible and don't copy-paste as much, repeating and
+propagating errors or making the code hart to maintain.
+
+#### YAGNI
+YAGNI (you aren't gonna need it) It's thinking about the thing we aren't using and deleting them form the code.
+
+#### GRASP
+GRASP (general responsibility assignment) which is a group of concepts that we've already seen. These are good practices
+we've already used, and we group them under a single concept to describe characteristics that have systems.
