@@ -232,3 +232,79 @@ Example:
 
 
 3. Compound: One object stops existing when the other stops existing
+
+### 3. OOP Characteristics
+
+1. Abstraction
+
+   It's to take the most important aspects of the model we are trying to abstract and take those attributes by taking
+   the context into consideration.
+
+
+2. Encapsulation
+
+   It's to save the performance of these objects within themselves and expose just the important and interesting factors
+   that other objects want to know about them, or the ones who are interested in communicating with un within the model. So
+   we will control the encapsulation level through access, the private and public level of the method or attribute and also
+   through the performance within the methods.
+
+
+3. Modularity
+
+   It is the process of decomposing a problem (program) into a set of modules to reduce the overall complexity of
+   the problem. We want the modules to be compact but tightly coupled. This means that we don't want modules depending on
+   other modules.
+
+
+4. Hierarchy inside of classes
+
+   4.1 "Is a":
+
+   It refers to a class and subclass. For example if we have a Flower Class the subclass would be a Rose Class,
+   or a Daisy Class.
+
+   4.2 "It is a part of":
+
+   Here we are talking about a composition. We have a class that is going to be compound by other
+   classes. Following the example of the flowers, we have the Flower Class that has particular components, there is the Petal
+   Class, the Leaf and the Stem Class, those, at the same time, will be other objects that make the flower
+
+
+5. Inheritance
+
+   This is when we have a class which is the parent or superclass, and it's kid classes or subclasses. Kid classes are
+   going to inherit from the parent class, the behaviour that is already defined in that class but at the same time, the kids
+   may have specific behaviours for each specific class.
+
+   The inheritance can be:
+
+    - Simple: There is only one superclass.
+    - Multiple: There can be multiple superclasses.
+    - Multi-level: A derived class can be created from another derived class.
+    - Hierarchical: More than one derived classes can be created from a single base class and further child classes act as
+      parent classes for more than one child classes (kind of like branches on a tree).
+    - Hybrid classes: This is combination of more than one inheritance.
+
+6. Abstract classes and Interfaces
+
+    - Abstract Classes:
+
+      Abstract classes may exist without the need to instantiate them or create objects that belong to them, so we have
+      a word that distinguish them "abstract", and they can exist without having another purpose.
+
+    - Interface:
+
+      An interface is a contract where we define certain methods, and they will be each classes that implements the
+      interface will also implement that particular method. Interface don't have performance or logic incorporated.
+
+7. Polymorphism
+
+   It means "when something takes different shapes". When related with OOP, this paradigm give us the possibility of having
+   several behaviours depending on the instance this method is implementing
+
+8. Generalization y Specification
+
+    - Generalization is finding witch performance and attributes are recurring like finding patterns throughout the
+      model or problem.
+
+    - Specialization is finding the peculiar thing of each of the objects we are working with.
