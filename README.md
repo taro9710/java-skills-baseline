@@ -816,3 +816,20 @@ If we'd like to have our greeter project dependent on the greeting-library, we n
     dependencies {
         compile project(':greeting-library')
     }
+
+### 6. Using Gradle Wrapper
+If a Gradle project has gradlew file for Linux and gradlew.bat file for Windows, we don't need to install Gradle to 
+build the project. If we execute gradlew build in Windows and ./gradlew build in Linux, a Gradle distribution specified 
+in gradlew file will be downloaded automatically.
+
+If we'd like to add the Gradle wrapper to our project:
+
+    gradle wrapper --gradle-version 4.2.1
+The command needs to be executed from the root of the project. This will create all necessary files and folders to tie Gradle wrapper to the project. The other way to do the same is to add the wrapper task to the build script:
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.2.1'
+    }
+Now we need to execute the wrapper task and the task will tie our project to the wrapper. Besides the gradlew files, a wrapper folder is generated inside the gradle folder containing a jar and a properties file.
+
+If we want to switch to a new version of Gradle, we only need to change an entry in gradle-wrapper.properties.
