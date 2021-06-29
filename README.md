@@ -161,3 +161,9 @@ del [file_name] deletes a file
 22. git checkout .
 
     Undoes all the changes of a revision.
+
+### 5. Good Practices
+
+1. Make commits frequently. This way they are easier to patch or revert, and it helps us to work in a more organized way.
+
+2. Never commit work in progress.
