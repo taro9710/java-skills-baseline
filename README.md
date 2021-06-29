@@ -425,3 +425,77 @@ With these diagrams we can create the classes and they'll look like this:
             }
         }
     }
+
+### 4. Design Patterns
+
+Design Patterns are reusable solution to a commonly occurring problem within a given context in software design.
+They are like a description or template for how to solve a problem that can be used in many different situations.
+
+- Creational patterns
+
+  Creational patterns are the ones that allows us to create new instances inside our program in a reusable and
+  cleaner way. Some of these patterns are:
+
+    - Builder: Separate the construction of a complex object from its representation, allowing the same construction
+      process to create various representations.
+
+    - Singleton: Ensure a class has only one instance, and provide a global point of access to it.
+
+    - Abstract Factory: Provide an interface for creating families of related or dependent objects without specifying
+      their concrete classes.
+
+    - Factory method: Define an interface for creating a single object, but let subclasses decide which class to
+      instantiate. Factory Method lets a class defer instantiation to subclasses.
+
+    - Prototype: Specify the kinds of objects to create using a prototypical instance, and create new objects from
+      the 'skeleton' of an existing object, thus boosting performance and keeping memory footprints to a minimum.
+
+
+- Structural patterns
+
+  Structural patters propose certain conventions in the assembly of structures that give us possible solutions to problems
+  that other programmer have solved and also propose a way of good practice for a clean and reusable code. Some of these
+  are:
+
+    - Bridge: Decouple an abstraction from its implementation allowing the two to vary independently.
+
+    - Facade: Provide a unified interface to a set of interfaces in a subsystem. Facade defines a higher-level
+      interface that makes the subsystem easier to use.
+
+    - Composite: Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat
+      individual objects and compositions of objects uniformly.
+
+    - Proxy: Provide a surrogate or placeholder for another object to control access to it.
+
+    - flyweight: Use sharing to support large numbers of similar objects efficiently.
+
+
+- Behavioural patterns
+
+  Behavioural patterns  are strategies we can implement in the communication between different modules or classes.
+  Some of these are:
+
+    - Strategy: Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the
+      algorithm vary independently from clients that use it.
+
+    - Iterator: Provide a way to access the elements of an aggregate object sequentially without exposing its
+      underlying representation.
+
+    - Template: Define the skeleton of an algorithm in an operation, deferring some steps to subclasses.
+      Template method lets subclasses redefine certain steps of an algorithm without changing the algorithm's structure.
+
+    - Visitor: 	Represent an operation to be performed on the elements of an object structure. Visitor lets a new
+      operation be defined without changing the classes of the elements on which it operates.
+
+    - Observer: Define a one-to-many dependency between objects where a state change in one object results in all its
+      dependents being notified and updated automatically.
+
+    - Memento: Without violating encapsulation, capture and externalize an object's internal state allowing the object
+      to be restored to this state later.
+
+    - Chain of responsibility: Avoid coupling the sender of a request to its receiver by giving more than one object a
+      chance to handle the request. Chain the receiving objects and pass the request along the chain until an object handles it.
+
+    - State: Allow an object to alter its behavior when its internal state changes. The object will appear to change
+      its class.
+      
