@@ -324,12 +324,12 @@ With this context, so following the specialization concept, We want to constrain
 so it's easier to solve the problem. We will only focus in three classes. The customer class, the savings account class,
 and the current account class.
 
-//Here will be a diagram
+![alt text](./images/oop/uml1.png)
 
 If we apply the generalization process we can see that within the diagram that both SavingsAccount & CurrentAccount have
 some standards performances, that can be compatible with a particular abstract class name Account.
 
-//Here will be a diagram
+![alt text](./images/oop/uml2.png)
 
 With these diagrams we can create the classes and they'll look like this:
 
