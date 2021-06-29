@@ -308,3 +308,120 @@ Example:
       model or problem.
 
     - Specialization is finding the peculiar thing of each of the objects we are working with.
+
+### 3. Modeling Example
+
+Now we're going to look an example of modelling a class diagram which we're then going to develop with a behavior that
+we are going to apply some logic.
+
+#### Current & Savings Accounts (in relation to a customer)
+
+In this example we have customers and two types of counts. The current and savings accounts, which they have different
+behaviors. While both accounts have a balance,the savings account has a limit to how much we can withdraw daily from
+that account. Meanwhile, in the current account we can withdraw without a limit, and we can even exceed the balance.
+
+With this context, so following the specialization concept, We want to constrain the problem as much as possible,
+so it's easier to solve the problem. We will only focus in three classes. The customer class, the savings account class,
+and the current account class.
+
+//Here will be a diagram
+
+If we apply the generalization process we can see that within the diagram that both SavingsAccount & CurrentAccount have
+some standards performances, that can be compatible with a particular abstract class name Account.
+
+//Here will be a diagram
+
+With these diagrams we can create the classes and they'll look like this:
+
+    public class Customer {
+        private int id;
+        private String name;
+
+        public Customer() {
+            name = default;
+        }
+        public Customer(String name) {
+            this.name = name;
+        }
+        
+        public String getName(){
+            return name;
+
+        }
+    }
+
+
+    public abstract class Account {
+        protected double balance;
+        protected List<Customer> owners;
+
+        public Account (Collection<Customer> owners) {
+            this.owners = new ArrayList<Customer>();
+            balance = 0;
+
+            for (Customer owner : owners) {
+                this.owners.add(owner);
+            }
+        }
+        
+        public double getBalance(){
+            return balance;
+        }
+
+        public void deposit(double amount) {
+            balance += monto;
+        }
+
+        public abstract double withdraw(double amount);
+
+    }
+
+
+    public class CurrentAccount extends Account {
+        private double overdraft;
+        private double insufficientAmountInterest;
+
+        public CurrentAccount (List<Customer> owners, double overdraft, double insufficientAmountInterest) {
+            super(owners);
+            this.overdraft = overdraft;
+            this.insufficientAmountInterest = insufficientAmountInterest;
+        }
+        
+        public double withdraw (double amount) {
+            if (balance >= amount) {
+                balance -= amount;
+                return amount;
+            } else if ((amount - balance) <= overdraft {
+                balance -= amount + insufficientAmountInterest;
+                return amount;
+            } else {
+                return 0
+            }
+        }
+
+    }
+
+
+    public class SavingsAccount extends Account {
+        private int maxNumberOfOperations;
+        private int currentOperations;
+        private double annualInterestRate;
+
+        public SavingsAccount(List<Customer> owners, int maxNumberOfOperations, double annualInterestRate) {
+            super(owners);
+            this maxNumberOfOperations = maxNumberOfOperations;
+            this.annualInterestRate = double annualInterestRate;
+            currentOperations = 1;
+        }
+
+        public double withdraw(double amount) {
+            if (currentOperations <= maxNumberOfOperations) {
+                if (balance >= amount) {
+                    balance -= amount;
+                    currentOperations += 1;
+
+                    return amount;
+                }
+            }
+        }
+    }
