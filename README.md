@@ -752,3 +752,67 @@ To add dependencies to any local files, we can use something like this:
     testCompile("org.springframework.batch:spring-batch-test:3.0.7.RELEASE"){
         exclude module: 'junit'
     }
+
+### 5. Multi-Project Builds
+#### 5.1. Build Lifecycle
+*In the initialization phase, Gradle determines which projects are going to take part in a multi-project build.* This is
+usually mentioned in settings.gradle file, which is located in the project root. Gradle also creates instances of the 
+participating projects.
+
+*In the configuration phase, all created projects instances are configured based on Gradle feature configuration on 
+demand.*
+
+In this feature, only required projects are configured for a specific task execution. This way, configuration time is 
+highly reduced for a large multi-project build. This feature is still incubating.
+
+Finally, in the execution phase, a subset of tasks, created and configured are executed. We can include code in the 
+settings.gradle and build.gradle files to perceive these three phases.
+
+In settings.gradle :
+
+    println 'At initialization phase.'
+
+In build.gradle :
+
+    println 'At configuration phase.'
+
+    task configured { println 'Also at the configuration phase.' }
+
+    task execFirstTest { doLast { println 'During the execution phase.' } }
+
+    task execSecondTest {
+        doFirst { println 'At first during the execution phase.' }
+        doLast { println 'At last during the execution phase.' }
+        println 'At configuration phase.'
+    }
+
+#### 5.2. Creating Multi-Project Build
+We can execute the gradle init command in the root folder to create a skeleton for both settings.gradle and build.gradle 
+file.
+
+All common configuration will be kept in the root build script:
+
+    allprojects {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    subprojects {
+        version = '1.0'
+    }
+
+The setting file needs to include root project name and subproject name:
+
+    rootProject.name = 'multi-project-builds'
+    include 'greeting-library','greeter'
+
+Now we need to have a couple of subproject folders named greeting-library and greeter to have a demo of a multi-project 
+build. Each subproject needs to have an individual build script to configure their individual dependencies and other 
+necessary configurations.
+
+If we'd like to have our greeter project dependent on the greeting-library, we need to include the dependency in the build script of greeter:
+
+    dependencies {
+        compile project(':greeting-library')
+    }
