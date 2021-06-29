@@ -626,3 +626,72 @@ We can also define properties:
         ext.theProperty = "theValue"
     }
 Here, we're setting “theValue” as theProperty of the ourTask task.
+
+### 3. Managing Plugins
+There are two types of plugins in Gradle.
+
+-Script
+
+-Binary
+
+To benefit from an additional functionality, every plugin needs to go through two phases: resolving and applying.
+
+- Resolving means finding the correct version of the plugin jar and adding that to the classpath of the project.
+
+- Applying plugins is executing Plugin.apply(T) on the project.
+
+#### 3.1. Applying Script Plugins
+In the aplugin.gradle, we can define a task:
+
+    task fromPlugin {
+        doLast {
+            println "I'm from plugin"
+        }
+    }
+
+If we want to apply this plugin to our project build.gradle file, all we need to do is add this line to our build.gradle:
+
+    apply from: 'aplugin.gradle'
+
+Now, executing gradle tasks command should display the fromPlugin task in the task list.
+
+#### 3.2. Applying Binary Plugins Using Plugins DSL
+In the case of adding a core binary plugin, we can add short names or a plugin id:
+
+    plugins {
+        id 'application'
+    }
+Now the run task from application plugin should be available in a project to execute any runnable jar. To apply a
+community plugin, we have to mention a fully qualified plugin id :
+
+    plugins {
+        id "org.shipkit.bintray" version "0.9.116"
+    }
+Now, Shipkit tasks should be available on gradle tasks list.The limitations of the plugins DSL are:
+
+- It doesn't support Groovy code inside the plugins block.
+- Plugins block needs to be the top level statement in project's build scripts (only buildscripts{} block is allowed
+  before it).
+- Plugins DSL cannot be written in scripts plugin, settings.gradle file or in init scripts.
+
+Plugins DSL is still incubating. The DSL and other configuration may change in the later Gradle versions.
+
+#### 3.3. Legacy Procedure for Applying Plugins
+We can also apply plugins using the “apply plugin”:
+
+    apply plugin: 'war'
+If we need to add a community plugin, we have to add the external jar to the build classpath using buildscript{} block.
+
+Then, we can apply the plugin in the build scripts but only after any existing plugins{} block:
+
+    buildscript {
+        repositories {
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+        dependencies {
+            classpath "org.shipkit:shipkit:0.9.117"
+        }
+    }
+    apply plugin: "org.shipkit.bintray-release"
