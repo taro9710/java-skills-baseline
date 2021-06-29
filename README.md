@@ -174,3 +174,6 @@ del [file_name] deletes a file
 
 Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects". Objects can have attributes,
 methods (witch will determine the behaviour of the object) and relations (with other objects).
+
+It differs from other programming paradigms in tha we have abstractions or encapsulations that allows us to use the program
+without necessarily having to know all the details in how the algorithm works.
