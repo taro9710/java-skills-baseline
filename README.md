@@ -548,7 +548,81 @@ YAGNI (you aren't gonna need it) It's thinking about the thing we aren't using a
 GRASP (general responsibility assignment) which is a group of concepts that we've already seen. These are good practices
 we've already used, and we group them under a single concept to describe characteristics that have systems.
 
-# Gradle Basics
+## Gradle Basics
 
-## 1. Introduction
+### 1. Introduction
 Gradle is a Groovy-based build management system designed specifically for building Java-based projects.
+
+### 2. Building Blocks – Projects and Tasks
+In Gradle, Builds consist of one or more projects and each project consists of one or more tasks.
+A project in Gradle can be assembling a jar, war or even a zip file.
+
+A task is a single piece of work. This can include compiling classes, or creating and publishing Java/web archives.
+
+A simple task can be defined as:
+
+    task hello {
+        doLast {
+            println 'Lauta'
+        }
+    }
+If we execute above task using gradle -q hello command from the same location where build.gradle resides, we should see
+the output in the console.
+
+#### 2.1. Tasks
+Gradle's build scripts are nothing but Groovy:
+
+    task toLower {
+        doLast {
+            String someString = 'HELLO WORLD IM LAUTA'
+            println "Original: "+ someString
+            println "Lower case: " + someString.toLowerCase()
+        }
+    }
+We can define tasks that depend on other tasks. Task dependency can be defined by passing the dependsOn: taskName argument in a task definition:
+
+    task helloGradle {
+        doLast {
+            println 'Hello Gradle!'
+        }
+    }
+
+    task fromBaeldung(dependsOn: helloGradle) {
+        doLast {
+            println "I'm from Baeldung"
+        }
+    }
+
+#### 2.2. Adding Behavior to a Task
+We can define a task and enhance it with some additional behaviour:
+
+    task helloBaeldung {
+        doLast {
+            println 'I will be executed second'
+        }
+    }
+
+    helloBaeldung.doFirst {
+        println 'I will be executed first'
+    }
+
+    helloBaeldung.doLast {
+        println 'I will be executed third'
+    }
+
+    helloBaeldung {
+        doLast {
+            println 'I will be executed fourth'
+        }
+    }
+
+doFirst and doLast add actions at the top and bottom of the action list, respectively, and can be defined multiple times
+in a single task.
+
+#### 2.3. Adding Task Properties
+We can also define properties:
+
+    task ourTask {
+        ext.theProperty = "theValue"
+    }
+Here, we're setting “theValue” as theProperty of the ourTask task.
