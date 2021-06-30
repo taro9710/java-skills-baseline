@@ -833,3 +833,19 @@ The command needs to be executed from the root of the project. This will create 
 Now we need to execute the wrapper task and the task will tie our project to the wrapper. Besides the gradlew files, a wrapper folder is generated inside the gradle folder containing a jar and a properties file.
 
 If we want to switch to a new version of Gradle, we only need to change an entry in gradle-wrapper.properties.
+
+## Core Spring Concepts
+
+
+###1. Introduction to Spring Framework
+
+Spring Framework is a Java platform that provides comprehensive infrastructure support for developing Java applications.
+Spring handles the infrastructure so you can focus on your application.
+Spring enables you to build applications from “plain old Java objects” (POJOs) and to apply enterprise services
+non-invasively to POJOs. This capability applies to the Java SE programming model and to full and partial Java EE.
+
+Examples of how you, as an application developer, can use the Spring platform advantage:
+- Make a Java method execute in a database transaction without having to deal with transaction APIs.
+- Make a local Java method a remote procedure without having to deal with remote APIs.
+- Make a local Java method a management operation without having to deal with JMX APIs.
+- Make a local Java method a message handler without having to deal with JMS APIs.
