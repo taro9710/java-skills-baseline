@@ -837,7 +837,7 @@ If we want to switch to a new version of Gradle, we only need to change an entry
 ## Core Spring Concepts
 
 
-###1. Introduction to Spring Framework
+### 1. Introduction to Spring Framework
 
 Spring Framework is a Java platform that provides comprehensive infrastructure support for developing Java applications.
 Spring handles the infrastructure so you can focus on your application.
@@ -849,3 +849,31 @@ Examples of how you, as an application developer, can use the Spring platform ad
 - Make a local Java method a remote procedure without having to deal with remote APIs.
 - Make a local Java method a management operation without having to deal with JMX APIs.
 - Make a local Java method a message handler without having to deal with JMS APIs.
+
+#### 1.1 Dependency Injection and Inversion of Control
+Java applications -- a loose term that runs the gamut from constrained applets to n-tier server-side enterprise 
+applications -- typically consist of objects that collaborate to form the application proper. Thus the objects in an 
+application have dependencies on each other.
+
+Although the Java platform provides a wealth of application development functionality, it lacks the means to organize 
+the basic building blocks into a coherent whole, leaving that task to architects and developers. True, you can use 
+design patterns such as Factory, Abstract Factory, Builder, Decorator, and Service Locator to compose the various 
+classes and object instances that make up an application. However, these patterns are simply that: best practices given 
+a name, with a description of what the pattern does, where to apply it, the problems it addresses, and so forth. 
+Patterns are formalized best practices that you must implement yourself in your application.
+
+*The Spring Framework Inversion of Control (IoC)*
+component addresses this concern by providing a formalized means of 
+composing disparate components into a fully working application ready for use. The Spring Framework codifies formalized 
+design patterns as first-class objects that you can integrate into your own application(s). Numerous organizations and 
+institutions use the Spring Framework in this manner to engineer robust, maintainable applications
+
+#### 1.2 Modules
+The Spring Framework consists of features organized into about 20 modules. These modules are grouped into Core 
+Container, Data Access/Integration, Web, AOP (Aspect Oriented Programming), Instrumentation, and Test, as shown in the 
+following diagram.
+
+![alt text](./images/core-spring-concepts/spring-modules.png)
+
+
+
