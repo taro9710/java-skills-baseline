@@ -928,3 +928,29 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
   Spring ApplicationContexts and caching of those contexts. It also provides mock objects that you can use to test your 
   code in isolation.
 
+## Java Basics
+
+### Introduction
+
+- #### What's a function?
+    A function is a block of code that performs a task.
+
+- #### What's a class?
+    A class is a container for one or more related functions.
+
+- #### What's a method?
+    A method is a function that belongs to a class?
+  
+- #### How Java code gets executed?
+    They are basically two steps involved here: **Compilation & Execution**
+    
+    - Compilation: In this step our IDE uses the Java compiler to compile our code into a different format called java 
+    bytecode. This Java compiler comes with the *Java Development kit (JDK)* that we downloaded. 
+    [alt text](./images/java-basics/java-compiler.png)
+      
+    - Execution: Java bytecode is platform independent, so it can run in Linux, Windows, etc. as long as they have a
+      *Java Runtime Environment (JRE)*. The JRE has a software component called *Java Virtual Machine (JVM)* that takes 
+      the Java bytecode and translates it to the native code for the underlying operating system so if you're on for 
+      example a Windows machine the JVM converts our Java bytecode into the native code that windows can understand. 
+      This is why a Java program is platform independent.
+      [alt text](./images/java-basics/java-virutal-machine.png)
