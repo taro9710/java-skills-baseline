@@ -942,15 +942,165 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
     A method is a function that belongs to a class?
   
 - #### How Java code gets executed?
+
     They are basically two steps involved here: **Compilation & Execution**
     
-    - Compilation: In this step our IDE uses the Java compiler to compile our code into a different format called java 
-    bytecode. This Java compiler comes with the *Java Development kit (JDK)* that we downloaded. 
-    [alt text](./images/java-basics/java-compiler.png)
+    - **Compilation**: In this step our IDE uses the Java compiler to compile our code into a different format called java 
+      bytecode. This Java compiler comes with the *Java Development kit (JDK)* that we downloaded.
       
-    - Execution: Java bytecode is platform independent, so it can run in Linux, Windows, etc. as long as they have a
+    ![alt text](./images/java-basics/java-compiler.png)
+    
+    - **Execution**: Java bytecode is platform independent, so it can run in Linux, Windows, etc. as long as they have a
       *Java Runtime Environment (JRE)*. The JRE has a software component called *Java Virtual Machine (JVM)* that takes 
       the Java bytecode and translates it to the native code for the underlying operating system so if you're on for 
       example a Windows machine the JVM converts our Java bytecode into the native code that windows can understand. 
       This is why a Java program is platform independent.
-      [alt text](./images/java-basics/java-virutal-machine.png)
+      
+     ![alt text](./images/java-basics/java-virutal-machine.png)
+
+- #### Variables
+    We use variables to temporarily store data in computer's memory. Here We are going to focus on various types in Java. 
+
+    We basically have two categories of types. We have *primitive types* for storing simple values and *reference types* for 
+    storing complex objects (For example String, or a Date object).
+    
+    **Primitive types**:
+    
+    ![alt text](./images/java-basics/primitive-types.png)
+  
+   **There is an important difference between primitive types and reference types in terms of memory management** 
+    
+    So if for example I have two variables:
+
+        byte x = 1;
+        byte y = x;
+  
+    These two different variables are at two different memory locations
+  
+    ![alt text](./images/java-basics/two-primitive-variables.png)
+    
+    so they are completely independent of each other. If I change one the value of *x*, *y* is not going to get affected.
+    So if for example I have:
+
+        byte x = 1;
+        byte y = x;
+        x = 2;
+        System.out.printlin(y);
+        
+    The output is going to be 1.
+  
+    But with reference type variables the behaviour is different. In Java We have a Point class that is defined in the 
+    package (java.awt), so We are going to declare a variable Point point1 with values for x = 1 & y = 1. Just like before we 
+    are going to declare a second variable and set it to point1
+  
+        Point point1 = new Point(1,1);
+        Point point2 = point1;
+    
+    This is where things get interesting. When the JRE executes It's going to allocate some memory to store this Point 
+    object. So if for example the address of that location is 100, then is going to allocate a separate part of the 
+    memory, and It's going to attach this label to that memory location (point1). In that memory location is going to 
+    store the address of our Point object not the actual Point object.
+  
+    ![alt text](./images/java-basics/reference-type.png)
+
+    When we declared that:
+
+        point2 = point1;
+  
+    *point2* is not the Point object, but the address or the reference of that Point object. So the two variables are 
+    not independent of each other, They are referencing to the same object.
+  
+    ![alt text](./images/java-basics/reference-type-2.png)
+
+    That means that if I update this point object through either of these variables the changes will be visible to the 
+    other variable.
+  
+    So continuing with the example:
+        
+        Point point1 = new Point(1,1);
+        Point point2 = point1;
+        
+        point1.x = 2;
+        System.out.println(point2.x)
+    
+    Because they are referencing the same object, the output will be 2.
+  
+- #### Arrays
+    We use Arrays to store a list of items. Like a list of numbers, or a list of people. We can declare them like this:
+        var[] variables = new var[n];
+    where n is the number of items in the array. 
+  
+- #### If Statements 
+    If conditions are really important because they allow us to build programs that can make decisions based on certain 
+  conditions. They can be expressed in the following:
+    -
+    
+            if (booleanCondition) {
+                //logic
+            }   
+            else if (secondBooleanCondition) {
+                //logic
+            }
+            else {
+                //logic
+            }
+        
+    - 
+    
+            if (booleanCondition) //logic;
+    
+    - (The Ternary Operator)
+    
+            Variable var = booleanCondition ? conditionTrueValue : conditionFalseValue;    
+    
+- #### Switch Statements 
+    Similar to the if statements, but It's an easier way to analyze multiple situation. 
+  
+        Variable variable = variableValue;
+        
+        switch (variable) {
+            case possibleValue1:
+                //logic case 1
+                break;
+                      
+            case possibleValue2:
+                //logic case2
+                break;
+                      
+            case possibleValue3:
+                //logic case 3
+                break;
+
+            Default: //This is when all the others fail
+                //logic for the default case
+                break;
+             
+- #### Loops
+    We use loops when we want to repeat an action (so we don't have to repeat the code).
+    - ##### For loop
+        We use it when We know exactly how many times We want to loop through a block of code.
+      
+            for (int i = 0; i < n; i++) {
+                //logic
+            }
+    - ##### While loops
+        We use while loops when We don't really know how many times We want to loop through a block of code, but We want 
+    to do it as long a condition remains true.
+        
+            while (booleanCondition) {
+                //logic
+            }
+    - ##### Do-While loops
+        Similar to while loops, but we want to make sure to execute the code at least once.
+    
+            do {
+                //logic
+            } while (booleanCondition);
+    - ##### For Each loops
+        We use for-each loops to iterate over arrays or Collections.
+    
+        Variable[] variables = { var1, var2, var3 }
+        for (Variable variable : variables) {
+            //logic
+        }
+        
