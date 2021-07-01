@@ -547,3 +547,289 @@ YAGNI (you aren't gonna need it) It's thinking about the thing we aren't using a
 #### GRASP
 GRASP (general responsibility assignment) which is a group of concepts that we've already seen. These are good practices
 we've already used, and we group them under a single concept to describe characteristics that have systems.
+
+## Gradle Basics
+
+### 1. Introduction
+Gradle is a Groovy-based build management system designed specifically for building Java-based projects.
+
+### 2. Building Blocks – Projects and Tasks
+In Gradle, Builds consist of one or more projects and each project consists of one or more tasks.
+A project in Gradle can be assembling a jar, war or even a zip file.
+
+A task is a single piece of work. This can include compiling classes, or creating and publishing Java/web archives.
+
+A simple task can be defined as:
+
+    task hello {
+        doLast {
+            println 'Lauta'
+        }
+    }
+If we execute above task using gradle -q hello command from the same location where build.gradle resides, we should see
+the output in the console.
+
+#### 2.1. Tasks
+Gradle's build scripts are nothing but Groovy:
+
+    task toLower {
+        doLast {
+            String someString = 'HELLO WORLD IM LAUTA'
+            println "Original: "+ someString
+            println "Lower case: " + someString.toLowerCase()
+        }
+    }
+We can define tasks that depend on other tasks. Task dependency can be defined by passing the dependsOn: taskName argument in a task definition:
+
+    task helloGradle {
+        doLast {
+            println 'Hello Gradle!'
+        }
+    }
+
+    task fromBaeldung(dependsOn: helloGradle) {
+        doLast {
+            println "I'm from Baeldung"
+        }
+    }
+
+#### 2.2. Adding Behavior to a Task
+We can define a task and enhance it with some additional behaviour:
+
+    task helloBaeldung {
+        doLast {
+            println 'I will be executed second'
+        }
+    }
+
+    helloBaeldung.doFirst {
+        println 'I will be executed first'
+    }
+
+    helloBaeldung.doLast {
+        println 'I will be executed third'
+    }
+
+    helloBaeldung {
+        doLast {
+            println 'I will be executed fourth'
+        }
+    }
+
+doFirst and doLast add actions at the top and bottom of the action list, respectively, and can be defined multiple times
+in a single task.
+
+#### 2.3. Adding Task Properties
+We can also define properties:
+
+    task ourTask {
+        ext.theProperty = "theValue"
+    }
+Here, we're setting “theValue” as theProperty of the ourTask task.
+
+### 3. Managing Plugins
+There are two types of plugins in Gradle.
+
+-Script
+
+-Binary
+
+To benefit from an additional functionality, every plugin needs to go through two phases: resolving and applying.
+
+- Resolving means finding the correct version of the plugin jar and adding that to the classpath of the project.
+
+- Applying plugins is executing Plugin.apply(T) on the project.
+
+#### 3.1. Applying Script Plugins
+In the aplugin.gradle, we can define a task:
+
+    task fromPlugin {
+        doLast {
+            println "I'm from plugin"
+        }
+    }
+
+If we want to apply this plugin to our project build.gradle file, all we need to do is add this line to our build.gradle:
+
+    apply from: 'aplugin.gradle'
+
+Now, executing gradle tasks command should display the fromPlugin task in the task list.
+
+#### 3.2. Applying Binary Plugins Using Plugins DSL
+In the case of adding a core binary plugin, we can add short names or a plugin id:
+
+    plugins {
+        id 'application'
+    }
+Now the run task from application plugin should be available in a project to execute any runnable jar. To apply a
+community plugin, we have to mention a fully qualified plugin id :
+
+    plugins {
+        id "org.shipkit.bintray" version "0.9.116"
+    }
+Now, Shipkit tasks should be available on gradle tasks list.The limitations of the plugins DSL are:
+
+- It doesn't support Groovy code inside the plugins block.
+- Plugins block needs to be the top level statement in project's build scripts (only buildscripts{} block is allowed
+  before it).
+- Plugins DSL cannot be written in scripts plugin, settings.gradle file or in init scripts.
+
+Plugins DSL is still incubating. The DSL and other configuration may change in the later Gradle versions.
+
+#### 3.3. Legacy Procedure for Applying Plugins
+We can also apply plugins using the “apply plugin”:
+
+    apply plugin: 'war'
+If we need to add a community plugin, we have to add the external jar to the build classpath using buildscript{} block.
+
+Then, we can apply the plugin in the build scripts but only after any existing plugins{} block:
+
+    buildscript {
+        repositories {
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+        dependencies {
+            classpath "org.shipkit:shipkit:0.9.117"
+        }
+    }
+    apply plugin: "org.shipkit.bintray-release"
+
+### 4. Dependency Management
+   Gradle supports very flexible dependency management system, it's compatible with the wide variety of available approaches.
+
+*Best practices for dependency management in Gradle are versioning, dynamic versioning, resolving version conflicts and 
+managing transitive dependencies.*
+
+#### 4.1. Dependency Configuration
+Dependencies are grouped into different configurations. 
+*A configuration has a name and they can extend each other.*
+
+If we apply the Java plugin, we'll have compile, testCompile, runtime configurations available for grouping our dependencies. 
+*The default configuration extends “runtime”.*
+
+#### 4.2. Declaring Dependencies
+Let's look at an example of adding some dependencies (Spring and Hibernate) using several different ways:
+
+    dependencies {
+        compile group: 
+            'org.springframework', name: 'spring-core', version: '4.3.5.RELEASE'
+        compile 'org.springframework:spring-core:4.3.5.RELEASE',
+            'org.springframework:spring-aop:4.3.5.RELEASE'
+        compile(
+            [group: 'org.springframework', name: 'spring-core', version: '4.3.5.RELEASE'],
+            [group: 'org.springframework', name: 'spring-aop', version: '4.3.5.RELEASE']
+        )
+        testCompile('org.hibernate:hibernate-core:5.2.12.Final') {
+            transitive = true
+        }
+        runtime(group: 'org.hibernate', name: 'hibernate-core', version: '5.2.12.Final') {
+            transitive = false
+        }
+    }
+
+We're declaring dependencies in various configurations: compile, testCompile, and runtime in various formats.
+
+Sometimes we need dependencies that have multiple artifacts. In such cases, we can add an artifact-only notations 
+@extensionName (or ext in the expanded form) to download the desired artifact:
+
+    runtime "org.codehaus.groovy:groovy-all:2.4.11@jar"
+    runtime group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.11', ext: 'jar'
+Here, we added the @jar notation to download only the jar artifact without the dependencies.
+
+To add dependencies to any local files, we can use something like this:
+
+    compile files('libs/joda-time-2.2.jar', 'libs/junit-4.12.jar')
+    compile fileTree(dir: 'libs', include: '*.jar')
+
+*When we want to avoid transitive dependencies, we can do it on configuration level or on dependency level:*
+
+    configurations {
+        testCompile.exclude module: 'junit'
+    }
+
+    testCompile("org.springframework.batch:spring-batch-test:3.0.7.RELEASE"){
+        exclude module: 'junit'
+    }
+
+### 5. Multi-Project Builds
+#### 5.1. Build Lifecycle
+*In the initialization phase, Gradle determines which projects are going to take part in a multi-project build.* This is
+usually mentioned in settings.gradle file, which is located in the project root. Gradle also creates instances of the 
+participating projects.
+
+*In the configuration phase, all created projects instances are configured based on Gradle feature configuration on 
+demand.*
+
+In this feature, only required projects are configured for a specific task execution. This way, configuration time is 
+highly reduced for a large multi-project build. This feature is still incubating.
+
+Finally, in the execution phase, a subset of tasks, created and configured are executed. We can include code in the 
+settings.gradle and build.gradle files to perceive these three phases.
+
+In settings.gradle :
+
+    println 'At initialization phase.'
+
+In build.gradle :
+
+    println 'At configuration phase.'
+
+    task configured { println 'Also at the configuration phase.' }
+
+    task execFirstTest { doLast { println 'During the execution phase.' } }
+
+    task execSecondTest {
+        doFirst { println 'At first during the execution phase.' }
+        doLast { println 'At last during the execution phase.' }
+        println 'At configuration phase.'
+    }
+
+#### 5.2. Creating Multi-Project Build
+We can execute the gradle init command in the root folder to create a skeleton for both settings.gradle and build.gradle 
+file.
+
+All common configuration will be kept in the root build script:
+
+    allprojects {
+        repositories {
+            mavenCentral()
+        }
+    }
+
+    subprojects {
+        version = '1.0'
+    }
+
+The setting file needs to include root project name and subproject name:
+
+    rootProject.name = 'multi-project-builds'
+    include 'greeting-library','greeter'
+
+Now we need to have a couple of subproject folders named greeting-library and greeter to have a demo of a multi-project 
+build. Each subproject needs to have an individual build script to configure their individual dependencies and other 
+necessary configurations.
+
+If we'd like to have our greeter project dependent on the greeting-library, we need to include the dependency in the build script of greeter:
+
+    dependencies {
+        compile project(':greeting-library')
+    }
+
+### 6. Using Gradle Wrapper
+If a Gradle project has gradlew file for Linux and gradlew.bat file for Windows, we don't need to install Gradle to 
+build the project. If we execute gradlew build in Windows and ./gradlew build in Linux, a Gradle distribution specified 
+in gradlew file will be downloaded automatically.
+
+If we'd like to add the Gradle wrapper to our project:
+
+    gradle wrapper --gradle-version 4.2.1
+The command needs to be executed from the root of the project. This will create all necessary files and folders to tie Gradle wrapper to the project. The other way to do the same is to add the wrapper task to the build script:
+
+    task wrapper(type: Wrapper) {
+        gradleVersion = '4.2.1'
+    }
+Now we need to execute the wrapper task and the task will tie our project to the wrapper. Besides the gradlew files, a wrapper folder is generated inside the gradle folder containing a jar and a properties file.
+
+If we want to switch to a new version of Gradle, we only need to change an entry in gradle-wrapper.properties.
