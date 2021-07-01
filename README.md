@@ -1031,8 +1031,9 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
     where n is the number of items in the array. 
   
 - #### If Statements 
+  
     If conditions are really important because they allow us to build programs that can make decisions based on certain 
-  conditions. They can be expressed in the following:
+    conditions. They can be expressed in the following:
     -
     
             if (booleanCondition) {
