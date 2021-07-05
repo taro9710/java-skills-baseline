@@ -1034,7 +1034,8 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
   
     If conditions are really important because they allow us to build programs that can make decisions based on certain 
     conditions. They can be expressed in the following:
-    -
+    
+    - Normal if statement 
     
             if (booleanCondition) {
                 //logic
@@ -1105,3 +1106,89 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
             //logic
         }
         
+### Core Java
+
+- #### Some keywords.
+    First We are going to start by defining some words:
+    
+    ![alt text](./images/java-basics/key-words.png)
+
+    - **package**:
+      
+        A package, or the package structure is like the file structure on your computer. It helps to organize the 
+      different files of a program.
+      
+    - **import**:
+        
+        The import statements will bring files located in a package to reuse code.
+      
+    - **class**:
+      
+        Classes are units of code. A class is like a template, like a definition of what you want the class to do for 
+    you later on.
+      
+    - **method**:
+      
+        Methods define the action that you can execute on classes.
+      
+    - **variable**:
+      
+        A variable as the name implies, is a variable value, a placeholder for a value that you can set.
+      
+    - **public**: 
+      
+        Public is an access modifier that defines that any class from any other package may use the class or method with 
+      the public access modifier.
+      
+    - **void**:
+      
+        For every method, you have to define our return value even when you don't want to return any value at all. In 
+      this case, You will send void as return value of the method to explicitly define that the method will not return 
+      a value.
+      
+    - **@Test**:
+  
+        - @ : This indicates an annotation.
+    
+        - @Test: With this We indicate that a given method will be used as a test.
+    
+    - **CamelCase** :
+    
+        When a class or method consist in more than one word You use an uppercase letter to indicate the beginning of a 
+    new word.
+      
+    - **dot .**:
+        
+        Indicates a method being called.
+    
+    - **colon ;**:
+        
+        Indicates the end of a statement.
+    
+    - **object**: 
+        
+        Instances of a class.
+    
+    - **constructor**:
+        
+        This is a very special method. It is called on a class and, we'll create an object each time We call this method 
+    but as soon as the object exists We cannot call this method anymore.
+      
+    - **variable declaration**:
+        
+        Before We can use a variable We need to define it beforehand. For example
+
+            Car myPorsche;
+    
+    - **object allocation**:
+
+      Memory allocation in java refers to the process where the computer programs and services are allocated dedicated 
+      to virtual memory spaces.
+
+            myPorsche = new Car();
+        
+        
+        
+    
+        
+
