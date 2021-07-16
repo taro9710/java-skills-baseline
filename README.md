@@ -1187,8 +1187,162 @@ The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modu
 
             myPorsche = new Car();
         
-        
-        
-    
-        
+- #### Collections        
+    A collection represents a group of objects, known as its elements.
 
+    ![alt text](./images/java-basics/collection.png)
+
+- #### Big O Notation
+
+    Big O notation is a mathematical notation that describes the limiting behavior of a function when the argument tends 
+    towards a particular value or infinity. We use it *to describe the performance of an algorithm*. 
+
+- #### A Guide to Java Streams in Java
+
+    - ##### Introduction
+      Simply put, streams are wrappers around a data source, allowing us to operate with that data source and making 
+      bulk processing convenient and fast. **A stream does not store data and, in that sense, is not a data structure. 
+      It also never modifies the underlying data source.**
+
+      This functionality – java.util.stream – supports functional-style operations on streams of elements, such as 
+      map-reduce transformations on collections.
+    
+    - ##### Java Stream Operations
+    
+        - **forEach**:
+          
+                forEach() 
+          is simplest and, most common operation; it loops over the stream elements, calling the supplied 
+          function on each element. 
+          
+          forEach() is a terminal operation, which means that, after the operation is performed, the stream pipeline is 
+          considered consumed, and can no longer be used. We’ll talk more about terminal operations in the next section.
+        
+        - **collect**:
+          
+                collect() 
+          performs mutable fold operations (repackaging elements to some data structures and applying some 
+          additional logic, concatenating them, etc.) on data elements held in the Stream instance. For example:
+
+                List<Employee> employees = empList.stream().collect(Collectors.toList());
+
+                assertEquals(empList, employees)
+
+        - **map**:
+
+                map() 
+          produces a new stream after applying a function to each element of the original stream. 
+          The new stream could be of different type. For example:
+
+                Integer[] empIds = { 1, 2, 3 };
+
+                List<Employee> employees = Stream.of(empIds)
+                .map(employeeRepository::findById)
+                .collect(Collectors.toList());
+
+                assertEquals(employees.size(), empIds.length);
+
+          Here, we obtain an Integer stream of employee ids from an array. Each Integer is passed to the function 
+          
+                employeeRepository::findById() 
+          – which returns the corresponding Employee object; this effectively forms an 
+          Employee stream.
+
+        - **filter**:
+          
+                filter()
+          This produces a new stream that contains elements of the original stream 
+          that pass a given test (specified by a Predicate).
+          
+                    List<Employee> employees = Stream.of(empIds)
+                    .map(employeeRepository::findById)
+                    .filter(e -> e != null)
+                    .filter(e -> e.getSalary() > 200000)
+                    .collect(Collectors.toList());
+    
+        - **findFirst**:
+    
+                findFirst() 
+          returns an Optional for the first entry in the stream; the Optional can, of course, be empty:
+    
+                Employee employee = Stream.of(empIds)
+                .map(employeeRepository::findById)
+                .filter(e -> e != null)
+                .filter(e -> e.getSalary() > 100000)
+                .findFirst()
+                .orElse(null);
+    
+        - **peek**:
+      
+                peek()
+            can be useful in situations like this. Simply put, it performs the specified operation on each element of the 
+            stream and returns a new stream which can be used further. peek() is an intermediate operation:
+          
+        - **sorted**:
+          
+                sorted() 
+          This sorts the stream elements based on the comparator passed we pass into it. 
+          For example:
+          
+                List<Employee> employees = empList.stream()
+                .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
+                .collect(Collectors.toList());
+
+                assertEquals(employees.get(0).getName(), "Bill Gates");
+                assertEquals(employees.get(1).getName(), "Jeff Bezos");
+                assertEquals(employees.get(2).getName(), "Mark Zuckerberg");
+    
+        - **min and max**:
+    
+                min()
+                max()
+          return the minimum and maximum element in the stream respectively, based on a comparator. They return an 
+          Optional since a result may or may not exist. For example:
+          
+                //min example 
+          
+                Employee firstEmp = empList.stream()
+                .min((e1, e2) -> e1.getId() - e2.getId())
+                .orElseThrow(NoSuchElementException::new);
+
+                assertEquals(firstEmp.getId(), new Integer(1));
+    
+                //max example
+          
+                Employee maxSalEmp = empList.stream()
+                .max(Comparator.comparing(Employee::getSalary))
+                .orElseThrow(NoSuchElementException::new);
+
+                assertEquals(maxSalEmp.getSalary(), new Double(300000.0));
+    
+        - **distinct**:
+          
+                distinct() 
+          does not take any argument and returns the distinct elements in the stream, eliminating duplicates.
+
+- #### Spring
+
+    - ##### Framework
+        So basically a framework is a basic conceptional structure. A frame of reference. A set of ideas, conditions, or 
+        assumptions that determine how something will be approached.
+
+    - ##### Library vs framework
+        A library is a set of functions you can call. Your code is responsible for the flow. Each call does some work and 
+        returns control. While a framework does some of the work for you. You plug your behavior into some places but the 
+        framework is responsible for the flow. It will call your code when required.
+      
+    - ##### What is a bean?
+        A Bean is everything that is needed to "do the job". Everything that can be instantiated.
+    
+    - ##### Spring scopes
+        - singleton (default): A single instance per container.
+        - prototype (frequent): Single bean definition, many instances.
+        - thread: A new instance per thread.
+        - Custom: New custom defined scopes.
+      
+    - ##### Stereotypes
+      Annotations denoting the roles of types or methods in the overall architecture (at a conceptual, rather than 
+      implementation, level).
+      
+    - ##### Bean life cycle
+        The lifecycle of any object means when & how it is born, how it behaves throughout its life, and when & how it dies.
