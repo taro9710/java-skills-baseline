@@ -833,3 +833,516 @@ The command needs to be executed from the root of the project. This will create 
 Now we need to execute the wrapper task and the task will tie our project to the wrapper. Besides the gradlew files, a wrapper folder is generated inside the gradle folder containing a jar and a properties file.
 
 If we want to switch to a new version of Gradle, we only need to change an entry in gradle-wrapper.properties.
+
+## Core Spring Concepts
+
+
+### 1. Introduction to Spring Framework
+
+Spring Framework is a Java platform that provides comprehensive infrastructure support for developing Java applications.
+Spring handles the infrastructure so you can focus on your application.
+Spring enables you to build applications from “plain old Java objects” (POJOs) and to apply enterprise services
+non-invasively to POJOs. This capability applies to the Java SE programming model and to full and partial Java EE.
+
+Examples of how you, as an application developer, can use the Spring platform advantage:
+- Make a Java method execute in a database transaction without having to deal with transaction APIs.
+- Make a local Java method a remote procedure without having to deal with remote APIs.
+- Make a local Java method a management operation without having to deal with JMX APIs.
+- Make a local Java method a message handler without having to deal with JMS APIs.
+
+#### 1.1 Dependency Injection and Inversion of Control
+Java applications -- a loose term that runs the gamut from constrained applets to n-tier server-side enterprise 
+applications -- typically consist of objects that collaborate to form the application proper. Thus the objects in an 
+application have dependencies on each other.
+
+Although the Java platform provides a wealth of application development functionality, it lacks the means to organize 
+the basic building blocks into a coherent whole, leaving that task to architects and developers. True, you can use 
+design patterns such as Factory, Abstract Factory, Builder, Decorator, and Service Locator to compose the various 
+classes and object instances that make up an application. However, these patterns are simply that: best practices given 
+a name, with a description of what the pattern does, where to apply it, the problems it addresses, and so forth. 
+Patterns are formalized best practices that you must implement yourself in your application.
+
+*The Spring Framework Inversion of Control (IoC)*
+component addresses this concern by providing a formalized means of 
+composing disparate components into a fully working application ready for use. The Spring Framework codifies formalized 
+design patterns as first-class objects that you can integrate into your own application(s). Numerous organizations and 
+institutions use the Spring Framework in this manner to engineer robust, maintainable applications
+
+#### 1.2 Modules
+The Spring Framework consists of features organized into about 20 modules. These modules are grouped into Core 
+Container, Data Access/Integration, Web, AOP (Aspect Oriented Programming), Instrumentation, and Test, as shown in the 
+following diagram.
+
+![alt text](./images/core-spring-concepts/spring-modules.png)
+
+##### 1.2.1 Core Container
+- The **Core Container** consists of the Core, Beans, Context, and Expression Language modules.
+- The **Core and Beans modules** provide the fundamental parts of the framework, including the IoC and Dependency Injection 
+  features. The BeanFactory is a sophisticated implementation of the factory pattern. It removes the need for 
+  programmatic singletons and allows you to decouple the configuration and specification of dependencies from your 
+  actual program logic.
+- The **Context module** builds on the solid base provided by the Core and Beans modules: it is a means to access objects in 
+a framework-style manner that is similar to a JNDI registry. The Context module inherits its features from the Beans 
+module and adds support for internationalization (using, for example, resource bundles), event-propagation, 
+resource-loading, and the transparent creation of contexts by, for example, a servlet container. The Context module 
+also supports Java EE features such as EJB, JMX ,and basic remoting. The ApplicationContext interface is the focal 
+point of the Context module.
+- The **Expression Language module** provides a powerful expression language for querying and manipulating an object graph 
+  at runtime. It is an extension of the unified expression language (unified EL) as specified in the JSP 2.1 
+  specification. The language supports setting and getting property values, property assignment, method invocation, 
+  accessing the context of arrays, collections and indexers, logical and arithmetic operators, named variables, and 
+  retrieval of objects by name from Spring's IoC container. It also supports list projection and selection as well as 
+  common list aggregations.
+
+##### 1.2.2 Data Access/Integration
+
+The Data Access/Integration layer consists of the JDBC, ORM, OXM, JMS and Transaction modules.
+
+- The **JDBC module** provides a JDBC-abstraction layer that removes the need to do tedious JDBC coding and parsing of 
+  database-vendor specific error codes.
+- The **ORM module** provides integration layers for popular object-relational mapping APIs, including JPA, JDO, Hibernate, and iBatis. Using the ORM package you can use all of these O/R-mapping frameworks in combination with all of the other features Spring offers, such as the simple declarative transaction management feature mentioned previously.
+- The **OXM module** provides an abstraction layer that supports Object/XML mapping implementations for JAXB, Castor, 
+  XMLBeans, JiBX and XStream.
+- The **Java Messaging Service (JMS) module** contains features for producing and consuming messages.
+- The **Transaction module** supports programmatic and declarative transaction management for classes that implement 
+  special interfaces and for all your POJOs (plain old Java objects).
+
+##### 1.2.3 Web
+
+The Web layer consists of the Web, Web-Servlet, Web-Struts, and Web-Portlet modules.
+
+- The **Spring's Web module** provides basic web-oriented integration features such as multipart file-upload functionality and the initialization of the IoC container using servlet listeners and a web-oriented application context. It also contains the web-related parts of Spring's remoting support.
+- The **Web-Servlet module** contains Spring's model-view-controller (MVC) implementation for web applications. Spring's MVC framework provides a clean separation between domain model code and web forms, and integrates with all the other features of the Spring Framework.
+- The **Web-Struts module** contains the support classes for integrating a classic Struts web tier within a Spring application. Note that this support is now deprecated as of Spring 3.0. Consider migrating your application to Struts 2.0 and its Spring integration or to a Spring MVC solution.
+- The **Web-Portlet module** provides the MVC implementation to be used in a portlet environment and mirrors the functionality of Web-Servlet module.
+
+##### 1.2.4 AOP and Instrumentation
+
+- The **Spring's AOP module** provides an AOP Alliance-compliant aspect-oriented programming implementation allowing you to define, for example, method-interceptors and pointcuts to cleanly decouple code that implements functionality that should be separated. Using source-level metadata functionality, you can also incorporate behavioral information into your code, in a manner similar to that of .NET attributes.
+- The **separate Aspects module** provides integration with AspectJ.
+- The **Instrumentation module** provides class instrumentation support and classloader implementations to be used in certain application servers.
+
+##### 1.2.5 Test
+
+- The **Test module** supports the testing of Spring components with JUnit or TestNG. It provides consistent loading of 
+  Spring ApplicationContexts and caching of those contexts. It also provides mock objects that you can use to test your 
+  code in isolation.
+
+## Java Basics
+
+### Introduction
+
+- #### What's a function?
+    A function is a block of code that performs a task.
+
+- #### What's a class?
+    A class is a container for one or more related functions.
+
+- #### What's a method?
+    A method is a function that belongs to a class?
+  
+- #### How Java code gets executed?
+
+    They are basically two steps involved here: **Compilation & Execution**
+    
+    - **Compilation**: In this step our IDE uses the Java compiler to compile our code into a different format called java 
+      bytecode. This Java compiler comes with the *Java Development kit (JDK)* that we downloaded.
+      
+    ![alt text](./images/java-basics/java-compiler.png)
+    
+    - **Execution**: Java bytecode is platform independent, so it can run in Linux, Windows, etc. as long as they have a
+      *Java Runtime Environment (JRE)*. The JRE has a software component called *Java Virtual Machine (JVM)* that takes 
+      the Java bytecode and translates it to the native code for the underlying operating system so if you're on for 
+      example a Windows machine the JVM converts our Java bytecode into the native code that windows can understand. 
+      This is why a Java program is platform independent.
+      
+     ![alt text](./images/java-basics/java-virutal-machine.png)
+
+- #### Variables
+    We use variables to temporarily store data in computer's memory. Here We are going to focus on various types in Java. 
+
+    We basically have two categories of types. We have *primitive types* for storing simple values and *reference types* for 
+    storing complex objects (For example String, or a Date object).
+    
+    **Primitive types**:
+    
+    ![alt text](./images/java-basics/primitive-types.png)
+  
+   **There is an important difference between primitive types and reference types in terms of memory management** 
+    
+    So if for example I have two variables:
+
+        byte x = 1;
+        byte y = x;
+  
+    These two different variables are at two different memory locations
+  
+    ![alt text](./images/java-basics/two-primitive-variables.png)
+    
+    so they are completely independent of each other. If I change one the value of *x*, *y* is not going to get affected.
+    So if for example I have:
+
+        byte x = 1;
+        byte y = x;
+        x = 2;
+        System.out.printlin(y);
+        
+    The output is going to be 1.
+  
+    But with reference type variables the behaviour is different. In Java We have a Point class that is defined in the 
+    package (java.awt), so We are going to declare a variable Point point1 with values for x = 1 & y = 1. Just like before we 
+    are going to declare a second variable and set it to point1
+  
+        Point point1 = new Point(1,1);
+        Point point2 = point1;
+    
+    This is where things get interesting. When the JRE executes It's going to allocate some memory to store this Point 
+    object. So if for example the address of that location is 100, then is going to allocate a separate part of the 
+    memory, and It's going to attach this label to that memory location (point1). In that memory location is going to 
+    store the address of our Point object not the actual Point object.
+  
+    ![alt text](./images/java-basics/reference-type.png)
+
+    When we declared that:
+
+        point2 = point1;
+  
+    *point2* is not the Point object, but the address or the reference of that Point object. So the two variables are 
+    not independent of each other, They are referencing to the same object.
+  
+    ![alt text](./images/java-basics/reference-type-2.png)
+
+    That means that if I update this point object through either of these variables the changes will be visible to the 
+    other variable.
+  
+    So continuing with the example:
+        
+        Point point1 = new Point(1,1);
+        Point point2 = point1;
+        
+        point1.x = 2;
+        System.out.println(point2.x)
+    
+    Because they are referencing the same object, the output will be 2.
+  
+- #### Arrays
+    We use Arrays to store a list of items. Like a list of numbers, or a list of people. We can declare them like this:
+        var[] variables = new var[n];
+    where n is the number of items in the array. 
+  
+- #### If Statements 
+  
+    If conditions are really important because they allow us to build programs that can make decisions based on certain 
+    conditions. They can be expressed in the following:
+    
+    - Normal if statement 
+    
+            if (booleanCondition) {
+                //logic
+            }   
+            else if (secondBooleanCondition) {
+                //logic
+            }
+            else {
+                //logic
+            }
+        
+    - 
+    
+            if (booleanCondition) //logic;
+    
+    - (The Ternary Operator)
+    
+            Variable var = booleanCondition ? conditionTrueValue : conditionFalseValue;    
+    
+- #### Switch Statements 
+    Similar to the if statements, but It's an easier way to analyze multiple situation. 
+  
+        Variable variable = variableValue;
+        
+        switch (variable) {
+            case possibleValue1:
+                //logic case 1
+                break;
+                      
+            case possibleValue2:
+                //logic case2
+                break;
+                      
+            case possibleValue3:
+                //logic case 3
+                break;
+
+            Default: //This is when all the others fail
+                //logic for the default case
+                break;
+             
+- #### Loops
+    We use loops when we want to repeat an action (so we don't have to repeat the code).
+    - ##### For loop
+        We use it when We know exactly how many times We want to loop through a block of code.
+      
+            for (int i = 0; i < n; i++) {
+                //logic
+            }
+    - ##### While loops
+        We use while loops when We don't really know how many times We want to loop through a block of code, but We want 
+    to do it as long a condition remains true.
+        
+            while (booleanCondition) {
+                //logic
+            }
+    - ##### Do-While loops
+        Similar to while loops, but we want to make sure to execute the code at least once.
+    
+            do {
+                //logic
+            } while (booleanCondition);
+    - ##### For Each loops
+        We use for-each loops to iterate over arrays or Collections.
+    
+        Variable[] variables = { var1, var2, var3 }
+        for (Variable variable : variables) {
+            //logic
+        }
+        
+### Core Java
+
+- #### Some keywords.
+    First We are going to start by defining some words:
+    
+    ![alt text](./images/java-basics/key-words.png)
+
+    - **package**:
+      
+        A package, or the package structure is like the file structure on your computer. It helps to organize the 
+      different files of a program.
+      
+    - **import**:
+        
+        The import statements will bring files located in a package to reuse code.
+      
+    - **class**:
+      
+        Classes are units of code. A class is like a template, like a definition of what you want the class to do for 
+    you later on.
+      
+    - **method**:
+      
+        Methods define the action that you can execute on classes.
+      
+    - **variable**:
+      
+        A variable as the name implies, is a variable value, a placeholder for a value that you can set.
+      
+    - **public**: 
+      
+        Public is an access modifier that defines that any class from any other package may use the class or method with 
+      the public access modifier.
+      
+    - **void**:
+      
+        For every method, you have to define our return value even when you don't want to return any value at all. In 
+      this case, You will send void as return value of the method to explicitly define that the method will not return 
+      a value.
+      
+    - **@Test**:
+  
+        - @ : This indicates an annotation.
+    
+        - @Test: With this We indicate that a given method will be used as a test.
+    
+    - **CamelCase** :
+    
+        When a class or method consist in more than one word You use an uppercase letter to indicate the beginning of a 
+    new word.
+      
+    - **dot .**:
+        
+        Indicates a method being called.
+    
+    - **colon ;**:
+        
+        Indicates the end of a statement.
+    
+    - **object**: 
+        
+        Instances of a class.
+    
+    - **constructor**:
+        
+        This is a very special method. It is called on a class and, we'll create an object each time We call this method 
+    but as soon as the object exists We cannot call this method anymore.
+      
+    - **variable declaration**:
+        
+        Before We can use a variable We need to define it beforehand. For example
+
+            Car myPorsche;
+    
+    - **object allocation**:
+
+      Memory allocation in java refers to the process where the computer programs and services are allocated dedicated 
+      to virtual memory spaces.
+
+            myPorsche = new Car();
+        
+- #### Collections        
+    A collection represents a group of objects, known as its elements.
+
+    ![alt text](./images/java-basics/collection.png)
+
+- #### Big O Notation
+
+    Big O notation is a mathematical notation that describes the limiting behavior of a function when the argument tends 
+    towards a particular value or infinity. We use it *to describe the performance of an algorithm*. 
+
+- #### A Guide to Java Streams in Java
+
+    - ##### Introduction
+      Simply put, streams are wrappers around a data source, allowing us to operate with that data source and making 
+      bulk processing convenient and fast. **A stream does not store data and, in that sense, is not a data structure. 
+      It also never modifies the underlying data source.**
+
+      This functionality – java.util.stream – supports functional-style operations on streams of elements, such as 
+      map-reduce transformations on collections.
+    
+    - ##### Java Stream Operations
+    
+        - **forEach**:
+          
+                forEach() 
+          is simplest and, most common operation; it loops over the stream elements, calling the supplied 
+          function on each element. 
+          
+          forEach() is a terminal operation, which means that, after the operation is performed, the stream pipeline is 
+          considered consumed, and can no longer be used. We’ll talk more about terminal operations in the next section.
+        
+        - **collect**:
+          
+                collect() 
+          performs mutable fold operations (repackaging elements to some data structures and applying some 
+          additional logic, concatenating them, etc.) on data elements held in the Stream instance. For example:
+
+                List<Employee> employees = empList.stream().collect(Collectors.toList());
+
+                assertEquals(empList, employees)
+
+        - **map**:
+
+                map() 
+          produces a new stream after applying a function to each element of the original stream. 
+          The new stream could be of different type. For example:
+
+                Integer[] empIds = { 1, 2, 3 };
+
+                List<Employee> employees = Stream.of(empIds)
+                .map(employeeRepository::findById)
+                .collect(Collectors.toList());
+
+                assertEquals(employees.size(), empIds.length);
+
+          Here, we obtain an Integer stream of employee ids from an array. Each Integer is passed to the function 
+          
+                employeeRepository::findById() 
+          – which returns the corresponding Employee object; this effectively forms an 
+          Employee stream.
+
+        - **filter**:
+          
+                filter()
+          This produces a new stream that contains elements of the original stream 
+          that pass a given test (specified by a Predicate).
+          
+                    List<Employee> employees = Stream.of(empIds)
+                    .map(employeeRepository::findById)
+                    .filter(e -> e != null)
+                    .filter(e -> e.getSalary() > 200000)
+                    .collect(Collectors.toList());
+    
+        - **findFirst**:
+    
+                findFirst() 
+          returns an Optional for the first entry in the stream; the Optional can, of course, be empty:
+    
+                Employee employee = Stream.of(empIds)
+                .map(employeeRepository::findById)
+                .filter(e -> e != null)
+                .filter(e -> e.getSalary() > 100000)
+                .findFirst()
+                .orElse(null);
+    
+        - **peek**:
+      
+                peek()
+            can be useful in situations like this. Simply put, it performs the specified operation on each element of the 
+            stream and returns a new stream which can be used further. peek() is an intermediate operation:
+          
+        - **sorted**:
+          
+                sorted() 
+          This sorts the stream elements based on the comparator passed we pass into it. 
+          For example:
+          
+                List<Employee> employees = empList.stream()
+                .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
+                .collect(Collectors.toList());
+
+                assertEquals(employees.get(0).getName(), "Bill Gates");
+                assertEquals(employees.get(1).getName(), "Jeff Bezos");
+                assertEquals(employees.get(2).getName(), "Mark Zuckerberg");
+    
+        - **min and max**:
+    
+                min()
+                max()
+          return the minimum and maximum element in the stream respectively, based on a comparator. They return an 
+          Optional since a result may or may not exist. For example:
+          
+                //min example 
+          
+                Employee firstEmp = empList.stream()
+                .min((e1, e2) -> e1.getId() - e2.getId())
+                .orElseThrow(NoSuchElementException::new);
+
+                assertEquals(firstEmp.getId(), new Integer(1));
+    
+                //max example
+          
+                Employee maxSalEmp = empList.stream()
+                .max(Comparator.comparing(Employee::getSalary))
+                .orElseThrow(NoSuchElementException::new);
+
+                assertEquals(maxSalEmp.getSalary(), new Double(300000.0));
+    
+        - **distinct**:
+          
+                distinct() 
+          does not take any argument and returns the distinct elements in the stream, eliminating duplicates.
+
+- #### Spring
+
+    - ##### Framework
+        So basically a framework is a basic conceptional structure. A frame of reference. A set of ideas, conditions, or 
+        assumptions that determine how something will be approached.
+
+    - ##### Library vs framework
+        A library is a set of functions you can call. Your code is responsible for the flow. Each call does some work and 
+        returns control. While a framework does some of the work for you. You plug your behavior into some places but the 
+        framework is responsible for the flow. It will call your code when required.
+      
+    - ##### What is a bean?
+        A Bean is everything that is needed to "do the job". Everything that can be instantiated.
+    
+    - ##### Spring scopes
+        - singleton (default): A single instance per container.
+        - prototype (frequent): Single bean definition, many instances.
+        - thread: A new instance per thread.
+        - Custom: New custom defined scopes.
+      
+    - ##### Stereotypes
+      Annotations denoting the roles of types or methods in the overall architecture (at a conceptual, rather than 
+      implementation, level).
+      
+    - ##### Bean life cycle
+        The lifecycle of any object means when & how it is born, how it behaves throughout its life, and when & how it dies.
