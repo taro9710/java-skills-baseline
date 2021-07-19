@@ -2,9 +2,11 @@ package com.lautaro.springexample.services.implementations;
 
 import com.lautaro.springexample.models.Employee;
 import com.lautaro.springexample.services.EmployeeService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findAll() {

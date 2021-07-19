@@ -4,7 +4,9 @@ import com.lautaro.springexample.models.Boss;
 import com.lautaro.springexample.repositories.BossRepository;
 import com.lautaro.springexample.repositories.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Bootstrap implements CommandLineRunner {
 
     private final BossRepository bossRepository;
@@ -17,7 +19,7 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        loadBosses();
+        loadBosses();
 //        loadEmployees();
     }
 
@@ -25,8 +27,13 @@ public class Bootstrap implements CommandLineRunner {
 
         Boss boss = new Boss();
 
+//        boss.setId(1);
         boss.setName("Jefe");
         boss.setLastname("Uno");
+
+        bossRepository.save(boss);
+
+        System.out.println("Bosses created");
 
     }
 

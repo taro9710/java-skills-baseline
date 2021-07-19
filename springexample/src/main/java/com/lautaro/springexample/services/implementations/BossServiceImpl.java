@@ -2,9 +2,11 @@ package com.lautaro.springexample.services.implementations;
 
 import com.lautaro.springexample.models.Boss;
 import com.lautaro.springexample.services.BossService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BossServiceImpl implements BossService {
     @Override
     public List<Boss> findByCompany(String company) {

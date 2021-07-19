@@ -24,7 +24,7 @@ public class BossController {
         return new ResponseEntity<>(bossService.findByID(id), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping(ALL_URL)
     public ResponseEntity<List<Boss>> getAll() {
         return new ResponseEntity<>(bossService.findAll(), HttpStatus.OK);
     }
@@ -39,10 +39,10 @@ public class BossController {
         return new ResponseEntity<>(bossService.create(boss), HttpStatus.CREATED);
     }
 
-    @PutMapping
-    public ResponseEntity<Boss> update(@RequestBody Boss boss){
-        return new ResponseEntity<>(bossService.update(boss), HttpStatus.CREATED);
-    }
+//    @PutMapping
+//    public ResponseEntity<Boss> update(@RequestBody Boss boss){
+//        return new ResponseEntity<>(bossService.update(boss), HttpStatus.CREATED);
+//    }
 
     @DeleteMapping({"/{id}"})
     public ResponseEntity<Void> deleteCustomer(@PathVariable String id){
