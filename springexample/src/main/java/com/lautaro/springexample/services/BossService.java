@@ -10,5 +10,5 @@ public interface BossService extends CrudService<Boss,String> {
 
     List<Boss> findByBusiness(String business);
 
-    List<Boss> findByCompanyAndBusiness(String company,String business);
+    Boss findByCompanyAndBusiness(String company,String business);
 }
