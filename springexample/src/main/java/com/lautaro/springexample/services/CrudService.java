@@ -1,4 +1,4 @@
-package com.lautaro.springexample.service;
+package com.lautaro.springexample.services;
 
 import java.util.List;
 
@@ -10,6 +10,10 @@ public interface CrudService <T,ID> {
 
     T save(T object);
 
+    T update(T object);
+
     void deleteById();
+
+    List<T> getAll();
 
 }
