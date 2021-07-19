@@ -7,22 +7,26 @@ import java.util.Date;
 public class Employee extends Person{
 
     @ManyToOne
-    @JoinColumn(name = "boss_id")
+    @JoinColumn(name = "boss")
     private Boss boss;
+    private String bossId;
 
     public Employee() {
         super();
     }
 
-    public Employee(Long id, String name, String lastname, String address, String city, String country, Boss boss) {
+    public Employee(Long id, String name, String lastname, String address, String city, String country, Boss boss,
+                    String bossId) {
         super(id, name, lastname, address, city, country);
         this.boss = boss;
+        this.bossId = bossId;
     }
 
     public Employee(Long id,String name, String lastname, String address, String city, String country, Date creation,
-                    Date update, Date deletion, Boss boss) {
+                    Date update, Date deletion, Boss boss,String bossId) {
         super(id, name, lastname, address, city, country, creation, update, deletion);
         this.boss = boss;
+        this.bossId = bossId;
     }
 
     public Long getId() {
@@ -39,5 +43,13 @@ public class Employee extends Person{
 
     public void setBoss(Boss boss) {
         this.boss = boss;
+    }
+
+    public String getBossId() {
+        return bossId;
+    }
+
+    public void setBossId(String bossId) {
+        this.bossId = bossId;
     }
 }

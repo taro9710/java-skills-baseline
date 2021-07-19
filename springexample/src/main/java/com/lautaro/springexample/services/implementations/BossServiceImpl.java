@@ -1,5 +1,6 @@
 package com.lautaro.springexample.services.implementations;
 
+import com.lautaro.springexample.exceptions.ResourceNotFoundException;
 import com.lautaro.springexample.exceptions.WebException;
 import com.lautaro.springexample.models.Boss;
 import com.lautaro.springexample.repositories.BossRepository;
@@ -23,15 +24,18 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public Boss create(Boss boss) {
-        Boss savedBoss = validateBoss(boss);
-        savedBoss.setCreation(new Date());
+        Boss savedBoss;
+
+        validateBoss(boss);
+        boss.setCreation(new Date());
+
+        savedBoss = bossRepository.save(boss);
 
         return savedBoss;
     }
 
-    private Boss validateBoss(Boss boss) {
+    private void validateBoss(Boss boss) {
         //TODO
-        return boss;
     }
 
     @Override
@@ -91,7 +95,7 @@ public class BossServiceImpl implements BossService {
             return optional.get();
         }
         else {
-            throw new WebException("Boss not found");
+            throw new ResourceNotFoundException("Boss not found");
         }
     }
 
