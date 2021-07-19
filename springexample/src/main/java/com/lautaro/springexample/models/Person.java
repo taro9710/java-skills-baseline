@@ -6,6 +6,10 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class Person {
 
+    @Id
+    @GeneratedValue
+    protected Long id;
+
     protected String name;
     protected String lastname;
     protected String address;
@@ -23,7 +27,8 @@ public abstract class Person {
 
     public Person() {}
 
-    public Person(String name, String lastname, String address, String city, String country) {
+    public Person( Long id, String name, String lastname, String address, String city, String country) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.address = address;
@@ -32,8 +37,9 @@ public abstract class Person {
         this.creation = new Date();
     }
 
-    public Person( String name, String lastname, String address, String city, String country, Date creation,
+    public Person( Long id, String name, String lastname, String address, String city, String country, Date creation,
                    Date update, Date deletion) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.address = address;
@@ -42,6 +48,14 @@ public abstract class Person {
         this.creation = creation;
         this.update = update;
         this.deletion = deletion;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

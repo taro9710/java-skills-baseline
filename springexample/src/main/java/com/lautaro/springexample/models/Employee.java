@@ -6,10 +6,6 @@ import java.util.Date;
 @Entity
 public class Employee extends Person{
 
-    @Id
-    @GeneratedValue
-    protected Long id;
-
     @ManyToOne
     @JoinColumn(name = "boss_id")
     private Boss boss;
@@ -18,16 +14,14 @@ public class Employee extends Person{
         super();
     }
 
-    public Employee(String name, String lastname, String address, String city, String country, Long id, Boss boss) {
-        super(name, lastname, address, city, country);
-        this.id = id;
+    public Employee(Long id, String name, String lastname, String address, String city, String country, Boss boss) {
+        super(id, name, lastname, address, city, country);
         this.boss = boss;
     }
 
-    public Employee(String name, String lastname, String address, String city, String country, Date creation,
-                    Date update, Date deletion, Long id, Boss boss) {
-        super(name, lastname, address, city, country, creation, update, deletion);
-        this.id = id;
+    public Employee(Long id,String name, String lastname, String address, String city, String country, Date creation,
+                    Date update, Date deletion, Boss boss) {
+        super(id, name, lastname, address, city, country, creation, update, deletion);
         this.boss = boss;
     }
 

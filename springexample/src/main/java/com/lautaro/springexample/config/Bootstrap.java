@@ -20,23 +20,30 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         loadBosses();
-//        loadEmployees();
+        loadEmployees();
     }
 
     private void loadBosses() {
 
         Boss boss = new Boss();
 
-//        boss.setId(1);
         boss.setName("Jefe");
         boss.setLastname("Uno");
 
         bossRepository.save(boss);
+
+        Boss boss2 = new Boss();
+
+        boss2.setName("Jefito");
+        boss2.setLastname("Dos");
+
+        bossRepository.save(boss2);
 
         System.out.println("Bosses created");
 
     }
 
     private void loadEmployees() {
+        
     }
 }

@@ -8,10 +8,6 @@ import java.util.Date;
 @Entity
 public class Boss extends Person {
 
-    @Id
-    @GeneratedValue
-    protected Long id;
-
     private String company;
     private String business; //This mean the branch of the company associated to this boss. Example Accounting.
 
@@ -19,18 +15,16 @@ public class Boss extends Person {
         super();
     }
 
-    public Boss(String name, String lastname, String address, String city, String country, Long id, String company,
+    public Boss(Long id, String name, String lastname, String address, String city, String country, String company,
                 String business) {
-        super(name, lastname, address, city, country);
-        this.id = id;
+        super(id,name, lastname, address, city, country);
         this.company = company;
         this.business = business;
     }
 
-    public Boss(String name, String lastname, String address, String city, String country, Date creation, Date update,
-                Date deletion, Long id, String company, String business) {
-        super(name, lastname, address, city, country, creation, update, deletion);
-        this.id = id;
+    public Boss(Long id, String name, String lastname, String address, String city, String country, Date creation, Date update,
+                Date deletion, String company, String business) {
+        super(id,name, lastname, address, city, country, creation, update, deletion);
         this.company = company;
         this.business = business;
     }
