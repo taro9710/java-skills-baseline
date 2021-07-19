@@ -1,15 +1,13 @@
 package com.lautaro.springexample.models;
 
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 @MappedSuperclass
 public abstract class Person {
 
     @Id
+    @GeneratedValue
     protected String id;
 
     protected String name;

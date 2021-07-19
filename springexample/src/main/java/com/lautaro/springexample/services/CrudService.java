@@ -6,14 +6,16 @@ public interface CrudService <T,ID> {
 
     List<T> findAll();
 
-    T findByID(ID id);
+    List<T> findActives();
 
     T save(T object);
 
+    T findByID(ID id);
+
+    T create(T object);
+
     T update(T object);
 
-    void deleteById();
-
-    List<T> getAll();
+    void deleteById(ID id);
 
 }
