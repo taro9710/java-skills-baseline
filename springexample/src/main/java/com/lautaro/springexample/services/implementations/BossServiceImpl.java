@@ -1,5 +1,6 @@
 package com.lautaro.springexample.services.implementations;
 
+import com.lautaro.springexample.exceptions.WebException;
 import com.lautaro.springexample.models.Boss;
 import com.lautaro.springexample.repositories.BossRepository;
 import com.lautaro.springexample.services.BossService;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BossServiceImpl implements BossService {
@@ -47,27 +50,37 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public List<Boss> findByCompany(String company) {
-        return null;
+        return findActives()
+                .stream()
+                .filter(boss -> boss.getCompany().equalsIgnoreCase(company))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Boss> findByBusiness(String business) {
-        return null;
-    }
+        return findActives()
+                .stream()
+                .filter(boss -> boss.getBusiness().equalsIgnoreCase(business))
+                .collect(Collectors.toList());    }
 
     @Override
     public Boss findByCompanyAndBusiness(String company, String business) {
         return null;
     }
 
-    @Override
-    public List<Boss> findAll() {
-        return null;
-    }
+
 
     @Override
     public List<Boss> findActives() {
-        return null;
+        return findAll()
+                .stream()
+                .filter(boss -> boss.getDeletion() == null)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Boss> findAll() {
+        return bossRepository.findAll();
     }
 
     @Override
@@ -77,7 +90,9 @@ public class BossServiceImpl implements BossService {
         if (optional.isPresent()){
             return optional.get();
         }
-        return null;
+        else {
+            throw new WebException("Boss not found");
+        }
     }
 
 }

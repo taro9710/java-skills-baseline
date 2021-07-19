@@ -19,11 +19,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee save(Employee object) {
-        return null;
-    }
-
-    @Override
     public Employee findByID(String s) {
         return null;
     }
