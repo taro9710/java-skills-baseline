@@ -8,8 +8,6 @@ public interface CrudService <T,ID> {
 
     List<T> findActives();
 
-    T save(T object);
-
     T findByID(ID id);
 
     T create(T object);
