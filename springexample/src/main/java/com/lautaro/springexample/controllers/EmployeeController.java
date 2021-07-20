@@ -30,16 +30,6 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.create(employee), HttpStatus.CREATED);
     }
 
-    @GetMapping(ALL_URL)
-    public ResponseEntity<List<Employee>> getAll() {
-        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping(ID_URL)
-    public ResponseEntity<Employee> getById(@PathVariable Long id) {
-        return new ResponseEntity<>(employeeService.getById(id), HttpStatus.OK);
-    }
-
     @PutMapping(ID_URL)
     public ResponseEntity<Employee> update(@PathVariable Long id,@RequestBody Employee employee){
         return new ResponseEntity<>(employeeService.update(id,employee), HttpStatus.CREATED);
@@ -50,6 +40,23 @@ public class EmployeeController {
         employeeService.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
+
+    @GetMapping(ID_URL)
+    public ResponseEntity<Employee> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(employeeService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(ALL_URL)
+    public ResponseEntity<List<Employee>> getAll() {
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/by-boss/{bossId}")
+    public ResponseEntity<List<Employee>> getByBoss(@PathVariable Long bossId) {
+        return new ResponseEntity<>(employeeService.findByBoss(bossId), HttpStatus.OK);
+    }
+
+
 
 
 }

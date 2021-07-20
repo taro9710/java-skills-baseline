@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface EmployeeService extends CrudService<Employee,Long> {
 
-    List<Employee> findByBoss(String bossId);
+    List<Employee> findByBoss(Long bossId);
 }

@@ -64,7 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> findByBoss(String bossId) {
+    public List<Employee> findByBoss(Long bossId) {
         return findAll()
                 .stream()
                 .filter(employee -> employee.getBossId().equals(bossId))
