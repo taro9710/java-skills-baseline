@@ -103,7 +103,11 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public Boss getByCompanyAndBusiness(String company, String business) {
-        Boss boss = findByCompanyAndBusiness(company,business);
+        Boss boss;
+
+        validateCompanyAndBusiness(company,business);
+
+        boss = findByCompanyAndBusiness(company,business);
 
         if (boss != null) {
             return boss;
@@ -142,14 +146,25 @@ public class BossServiceImpl implements BossService {
         }
 
         //Boss specific validation
-        if (boss.getCompany() == null || boss.getCompany().isEmpty()) {
-            throw new WebException("boss' company cannot be null or void.");
 
-        }if (boss.getBusiness() == null || boss.getBusiness().isEmpty()) {
-            throw new WebException("boss' business cannot be null or void.");
-        }
+        validateCompanyAndBusiness(boss.getCompany(),boss.getBusiness());
+
         if (findByCompanyAndBusiness(boss.getCompany(), boss.getBusiness()) != null) {
-            throw new WebException("There is already a boss in that company's business");
+            throw new WebException(
+                    boss.getCompany()
+                    + " already has a boss in the "
+                    + boss.getBusiness()
+                    + " department."
+            );
+        }
+    }
+
+    private void validateCompanyAndBusiness(String company, String business) {
+        if (company == null || company.isEmpty()) {
+            throw new WebException("boss' company cannot be null or void.");
+        }
+        if (business == null || business.isEmpty()) {
+            throw new WebException("boss' business cannot be null or void.");
         }
     }
 }

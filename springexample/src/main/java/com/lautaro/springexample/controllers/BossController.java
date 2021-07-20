@@ -36,8 +36,8 @@ public class BossController {
     }
 
     @GetMapping(ID_URL)
-    public ResponseEntity<Boss> getBossById(@PathVariable Long id) {
-        return new ResponseEntity<>(bossService.findById(id), HttpStatus.OK);
+    public ResponseEntity<Boss> getById(@PathVariable Long id) {
+        return new ResponseEntity<>(bossService.getById(id), HttpStatus.OK);
     }
 
     @PutMapping(ID_URL)
@@ -46,7 +46,7 @@ public class BossController {
     }
 
     @DeleteMapping(ID_URL)
-    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         bossService.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
