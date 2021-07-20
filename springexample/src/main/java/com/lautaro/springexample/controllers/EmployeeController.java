@@ -51,7 +51,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/by-boss/{bossId}")
+    @GetMapping(EMPLOYEE_BYBOSS_URL)
     public ResponseEntity<List<Employee>> getByBoss(@PathVariable Long bossId) {
         return new ResponseEntity<>(employeeService.findByBoss(bossId), HttpStatus.OK);
     }
