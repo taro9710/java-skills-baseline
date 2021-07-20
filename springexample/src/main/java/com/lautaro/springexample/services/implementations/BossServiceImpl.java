@@ -89,7 +89,7 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public Boss findByID(String id) {
-        Optional<Boss> optional = bossRepository.findById(id);
+        Optional<Boss> optional = bossRepository.findById(Long.valueOf(id));
 
         if (optional.isPresent()){
             return optional.get();

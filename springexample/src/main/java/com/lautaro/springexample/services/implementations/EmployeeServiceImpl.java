@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreation(new Date());
 
         savedEmployee = employeeRepository.save(employee);
-        
+
         return savedEmployee;
     }
 
@@ -73,7 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findByID(String id) {
-        Optional<Employee> optional = employeeRepository.findById(id);
+        Optional<Employee> optional = employeeRepository.findById(Long.valueOf(id));
 
         if (optional.isPresent()) {
             return optional.get();

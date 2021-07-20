@@ -10,7 +10,8 @@ import java.util.List;
 
 import static com.lautaro.springexample.config.Texts.*;
 
-@RestController(BOSS_BASEURL)
+@RestController
+@RequestMapping(BOSS_BASEURL)
 public class BossController {
 
     private final BossService bossService;
@@ -18,6 +19,12 @@ public class BossController {
     public BossController(BossService bossService) {
         this.bossService = bossService;
     }
+
+    @GetMapping
+    public ResponseEntity<List<Boss>> getActives() {
+        return new ResponseEntity<>(bossService.findActives(), HttpStatus.OK);
+    }
+
 
     @GetMapping(ID_URL)
     public ResponseEntity<Boss> getBossById(@PathVariable String id) {
@@ -27,11 +34,6 @@ public class BossController {
     @GetMapping(ALL_URL)
     public ResponseEntity<List<Boss>> getAll() {
         return new ResponseEntity<>(bossService.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Boss>> getActives(@PathVariable String id) {
-        return new ResponseEntity<>(bossService.findActives(), HttpStatus.OK);
     }
 
     @PostMapping
