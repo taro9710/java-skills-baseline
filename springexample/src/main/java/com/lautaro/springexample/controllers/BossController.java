@@ -35,6 +35,21 @@ public class BossController {
         return new ResponseEntity<>(bossService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(BOSS_COMPANY_URL)
+    public ResponseEntity<List<Boss>> getByCompany(@PathVariable String company){
+        return new ResponseEntity<>(bossService.findByCompany(company), HttpStatus.OK);
+    }
+
+    @GetMapping(BOSS_BUSINESS_URL)
+    public ResponseEntity<List<Boss>> getByBusiness(@PathVariable String business){
+        return new ResponseEntity<>(bossService.findByBusiness(business), HttpStatus.OK);
+    }
+
+    @GetMapping(BOSS_COMPANY_BUSINESS_URL)
+    public ResponseEntity<Boss> getByCompanyAndBusiness(@RequestParam String company, @RequestParam String business){
+        return new ResponseEntity<>(bossService.getByCompanyAndBusiness(company,business), HttpStatus.OK);
+    }
+
     @GetMapping(ID_URL)
     public ResponseEntity<Boss> getById(@PathVariable Long id) {
         return new ResponseEntity<>(bossService.getById(id), HttpStatus.OK);
