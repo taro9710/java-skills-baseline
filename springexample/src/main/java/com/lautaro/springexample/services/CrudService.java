@@ -8,11 +8,13 @@ public interface CrudService <T,ID> {
 
     List<T> findActives();
 
-    T findByID(ID id);
+    T findById(ID id);
+
+    T getById(ID id);
 
     T create(T object);
 
-    T update(T object);
+    T update(ID id,T object);
 
     void deleteById(ID id);
 

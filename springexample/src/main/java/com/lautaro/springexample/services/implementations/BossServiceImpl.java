@@ -5,13 +5,13 @@ import com.lautaro.springexample.exceptions.WebException;
 import com.lautaro.springexample.models.Boss;
 import com.lautaro.springexample.repositories.BossRepository;
 import com.lautaro.springexample.services.BossService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class BossServiceImpl implements BossService {
@@ -24,33 +24,56 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public Boss create(Boss boss) {
-        Boss savedBoss;
 
         validateBoss(boss);
         boss.setCreation(new Date());
 
-        savedBoss = bossRepository.save(boss);
-
-        return savedBoss;
-    }
-
-    private void validateBoss(Boss boss) {
-        //TODO
+        return bossRepository.save(boss);
     }
 
     @Override
-    public Boss update(Boss object) {
-        return null;
+    public Boss update(Long id,Boss boss) {
+        Boss bossForUpdate = getById(id);
+
+        validateBoss(boss);
+
+        BeanUtils.copyProperties(boss,bossForUpdate,"id");
+
+        boss.setUpdate(new Date());
+
+        return bossRepository.save(bossForUpdate);
     }
 
     @Override
-    public void deleteById(String id) {
-        Boss boss = findByID(id);
+    public void deleteById(Long id) {
+        Boss boss = findById(id);
         boss.setDeletion(new Date());
 
         bossRepository.save(boss);
     }
 
+
+    @Override
+    public Boss getById(Long id) {
+        Boss boss = findById(id);
+        if (boss != null) {
+            return boss;
+        }
+        else throw new ResourceNotFoundException("Boss not found.");
+    }
+
+    @Override
+    public List<Boss> findAll() {
+        return bossRepository.findAll();
+    }
+
+    @Override
+    public List<Boss> findActives() {
+        return findAll()
+                .stream()
+                .filter(boss -> boss.getDeletion() == null)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<Boss> findByCompany(String company) {
@@ -69,34 +92,64 @@ public class BossServiceImpl implements BossService {
 
     @Override
     public Boss findByCompanyAndBusiness(String company, String business) {
-        return null;
-    }
-
-
-
-    @Override
-    public List<Boss> findActives() {
-        return findAll()
+        Optional<Boss> optional = findActives()
                 .stream()
-                .filter(boss -> boss.getDeletion() == null)
-                .collect(Collectors.toList());
+                .filter(boss -> boss.getCompany().equalsIgnoreCase(company))
+                .filter(boss -> boss.getBusiness().equalsIgnoreCase(business))
+                .findFirst();
+
+        return optional.isPresent() ? optional.get() : null;
     }
 
     @Override
-    public List<Boss> findAll() {
-        return bossRepository.findAll();
+    public Boss getByCompanyAndBusiness(String company, String business) {
+        Boss boss = findByCompanyAndBusiness(company,business);
+
+        if (boss != null) {
+            return boss;
+        }
+        else throw new ResourceNotFoundException("Boss not found with those company and business.");
     }
+
 
     @Override
-    public Boss findByID(String id) {
-        Optional<Boss> optional = bossRepository.findById(Long.valueOf(id));
-
-        if (optional.isPresent()){
-            return optional.get();
-        }
-        else {
-            throw new ResourceNotFoundException("Boss not found");
-        }
+    public Boss findById(Long id) {
+        Optional<Boss> optional = bossRepository.findById(id);
+        return optional.isPresent() ? optional.get() : null;
     }
 
+    private void validateBoss(Boss boss) {
+
+        //Person validation
+        if (boss.getName() == null || boss.getName().isEmpty()) {
+            throw new WebException("boss' name cannot be null or void.");
+        }
+
+        if (boss.getLastname() == null || boss.getLastname().isEmpty()) {
+            throw new WebException("boss' lastname cannot be null or void.");
+        }
+
+        if (boss.getAddress() == null || boss.getAddress().isEmpty()) {
+            throw new WebException("boss' address cannot be null or void. ");
+        }
+
+        if (boss.getCity() == null || boss.getCity().isEmpty()) {
+            throw new WebException("boss' city cannot be null or void. ");
+        }
+
+        if (boss.getCountry() == null || boss.getCountry().isEmpty()) {
+            throw new WebException("boss' country cannot be null or void. ");
+        }
+
+        //Boss specific validation
+        if (boss.getCompany() == null || boss.getCompany().isEmpty()) {
+            throw new WebException("boss' company cannot be null or void.");
+
+        }if (boss.getBusiness() == null || boss.getBusiness().isEmpty()) {
+            throw new WebException("boss' business cannot be null or void.");
+        }
+        if (findByCompanyAndBusiness(boss.getCompany(), boss.getBusiness()) != null) {
+            throw new WebException("There is already a boss in that company's business");
+        }
+    }
 }

@@ -25,10 +25,9 @@ public class BossController {
         return new ResponseEntity<>(bossService.findActives(), HttpStatus.OK);
     }
 
-
-    @GetMapping(ID_URL)
-    public ResponseEntity<Boss> getBossById(@PathVariable String id) {
-        return new ResponseEntity<>(bossService.findByID(id), HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<Boss> create(@RequestBody Boss boss){
+        return new ResponseEntity<>(bossService.create(boss), HttpStatus.CREATED);
     }
 
     @GetMapping(ALL_URL)
@@ -36,18 +35,18 @@ public class BossController {
         return new ResponseEntity<>(bossService.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Boss> create(@RequestBody Boss boss){
-        return new ResponseEntity<>(bossService.create(boss), HttpStatus.CREATED);
+    @GetMapping(ID_URL)
+    public ResponseEntity<Boss> getBossById(@PathVariable Long id) {
+        return new ResponseEntity<>(bossService.findById(id), HttpStatus.OK);
     }
 
-//    @PutMapping
-//    public ResponseEntity<Boss> update(@RequestBody Boss boss){
-//        return new ResponseEntity<>(bossService.update(boss), HttpStatus.CREATED);
-//    }
+    @PutMapping(ID_URL)
+    public ResponseEntity<Boss> update(@PathVariable Long id,@RequestBody Boss boss){
+        return new ResponseEntity<>(bossService.update(id,boss), HttpStatus.CREATED);
+    }
 
-    @DeleteMapping({"/{id}"})
-    public ResponseEntity<Void> deleteCustomer(@PathVariable String id){
+    @DeleteMapping(ID_URL)
+    public ResponseEntity<Void> deleteCustomer(@PathVariable Long id){
         bossService.deleteById(id);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
