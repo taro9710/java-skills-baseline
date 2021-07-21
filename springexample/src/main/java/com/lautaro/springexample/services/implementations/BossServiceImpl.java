@@ -8,6 +8,7 @@ import com.lautaro.springexample.services.BossService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class BossServiceImpl implements BossService {
     public Boss create(Boss boss) {
 
         validateBoss(boss);
-        boss.setCreation(new Date());
+        boss.setCreation(LocalDate.now());
 
         return bossRepository.save(boss);
     }
@@ -39,7 +40,7 @@ public class BossServiceImpl implements BossService {
 
         BeanUtils.copyProperties(boss,bossForUpdate,"id");
 
-        boss.setUpdate(new Date());
+        bossForUpdate.setUpdate(LocalDate.now());
 
         return bossRepository.save(bossForUpdate);
     }
@@ -47,7 +48,7 @@ public class BossServiceImpl implements BossService {
     @Override
     public void deleteById(Long id) {
         Boss boss = findById(id);
-        boss.setDeletion(new Date());
+        boss.setDeletion(LocalDate.now());
 
         bossRepository.save(boss);
     }

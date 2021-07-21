@@ -9,6 +9,7 @@ import com.lautaro.springexample.services.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee savedEmployee;
 
         validateEmployee(employee);
-        employee.setCreation(new Date());
+        employee.setCreation(LocalDate.now());
 
         savedEmployee = employeeRepository.save(employee);
 
@@ -50,7 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             employeeForUpdate.setBoss(bossService.getById(employee.getBossId()));
         }
 
-        employeeForUpdate.setUpdate(new Date());
+        employeeForUpdate.setUpdate(LocalDate.now());
 
         return employeeRepository.save(employeeForUpdate);
     }
@@ -59,7 +60,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteById(Long id) {
         Employee employee = findById(id);
 
-        employee.setDeletion(new Date());
+        employee.setDeletion(LocalDate.now());
         employeeRepository.save(employee);
     }
 

@@ -1,6 +1,7 @@
 package com.lautaro.springexample.models;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @MappedSuperclass
@@ -17,13 +18,13 @@ public abstract class Person {
     protected String country;
 
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date creation;
+    protected LocalDate creation;
 
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date update;
+    protected LocalDate update;
 
     @Temporal(TemporalType.TIMESTAMP)
-    protected Date deletion;
+    protected LocalDate deletion;
 
     public Person() {}
 
@@ -34,11 +35,11 @@ public abstract class Person {
         this.address = address;
         this.city = city;
         this.country = country;
-        this.creation = new Date();
+        this.creation = LocalDate.now();
     }
 
-    public Person( Long id, String name, String lastname, String address, String city, String country, Date creation,
-                   Date update, Date deletion) {
+    public Person( Long id, String name, String lastname, String address, String city, String country,
+                   LocalDate creation, LocalDate update, LocalDate deletion) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
@@ -98,27 +99,27 @@ public abstract class Person {
         this.country = country;
     }
 
-    public Date getCreation() {
+    public LocalDate getCreation() {
         return creation;
     }
 
-    public void setCreation(Date creation) {
+    public void setCreation(LocalDate creation) {
         this.creation = creation;
     }
 
-    public Date getUpdate() {
+    public LocalDate getUpdate() {
         return update;
     }
 
-    public void setUpdate(Date update) {
+    public void setUpdate(LocalDate update) {
         this.update = update;
     }
 
-    public Date getDeletion() {
+    public LocalDate getDeletion() {
         return deletion;
     }
 
-    public void setDeletion(Date deletion) {
+    public void setDeletion(LocalDate deletion) {
         this.deletion = deletion;
     }
 }

@@ -6,6 +6,7 @@ import com.lautaro.springexample.repositories.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Component
@@ -36,7 +37,7 @@ public class Bootstrap implements CommandLineRunner {
         boss.setCountry("Argentina");
         boss.setCompany("Company SA");
         boss.setBusiness("Accounting");
-        boss.setCreation(new Date());
+        boss.setCreation(LocalDate.now());
 
 
         bossRepository.save(boss);
@@ -50,16 +51,17 @@ public class Bootstrap implements CommandLineRunner {
         boss2.setCountry("Argentina");
         boss2.setCompany("Company SA");
         boss2.setBusiness("Legal");
-        boss2.setCreation(new Date());
+        boss2.setCreation(LocalDate.now());
 
 
         bossRepository.save(boss2);
 
-        System.out.println("Bosses created");
+        System.out.println("Bosses loaded successfully");
 
     }
 
     private void loadEmployees() {
 
+        System.out.println("Employees created successfully");
     }
 }

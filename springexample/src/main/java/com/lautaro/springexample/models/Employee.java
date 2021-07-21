@@ -1,7 +1,7 @@
 package com.lautaro.springexample.models;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Employee extends Person{
@@ -22,19 +22,11 @@ public class Employee extends Person{
         this.bossId = bossId;
     }
 
-    public Employee(Long id,String name, String lastname, String address, String city, String country, Date creation,
-                    Date update, Date deletion, Boss boss,Long bossId) {
+    public Employee(Long id, String name, String lastname, String address, String city, String country, LocalDate creation,
+                    LocalDate update, LocalDate deletion, Boss boss, Long bossId) {
         super(id, name, lastname, address, city, country, creation, update, deletion);
         this.boss = boss;
         this.bossId = bossId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Boss getBoss() {
