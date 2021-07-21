@@ -10,7 +10,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,8 +61,9 @@ class BossServiceImplTest {
 
     @Test
     void update() {
-        //TODO
-//        //Given
+        //TODO unit test of update() method
+
+          //Given
 //        Boss modifiedBoss;
 //        Boss expectedBoss = getBoss1();
 //        expectedBoss.setName("Boss");
@@ -84,6 +84,7 @@ class BossServiceImplTest {
 
     @Test
     void deleteById() {
+        //TODO unit test of deletedById() method
         //Given
 
         //When
@@ -216,6 +217,7 @@ class BossServiceImplTest {
     private Boss getBoss1(){
         Boss boss = new Boss();
 
+        boss.setId(1L);
         boss.setName("Jefe");
         boss.setLastname("Uno");
         boss.setAddress("Calle 1");
@@ -231,6 +233,7 @@ class BossServiceImplTest {
     private Boss getBoss2(){
         Boss boss = new Boss();
 
+        boss.setId(2L);
         boss.setName("Jefito");
         boss.setLastname("Dos");
         boss.setAddress("Calle 2");

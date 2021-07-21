@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,14 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee create(Employee employee) {
-        Employee savedEmployee;
-
         validateEmployee(employee);
+
+        employee.setBoss(bossService.getById(employee.getBossId()));
         employee.setCreation(LocalDate.now());
 
-        savedEmployee = employeeRepository.save(employee);
-
-        return savedEmployee;
+        return  employeeRepository.save(employee);
     }
 
     @Override

@@ -14,6 +14,8 @@ public class Bootstrap implements CommandLineRunner {
 
     private final BossRepository bossRepository;
     private final EmployeeRepository employeeRepository;
+    private Boss boss;
+    private Boss boss2;
 
     public Bootstrap(BossRepository bossRepository, EmployeeRepository employeeRepository) {
         this.bossRepository = bossRepository;
@@ -28,7 +30,7 @@ public class Bootstrap implements CommandLineRunner {
 
     private void loadBosses() {
 
-        Boss boss = new Boss();
+        boss = new Boss();
 
         boss.setName("Jefe");
         boss.setLastname("Uno");
@@ -42,7 +44,7 @@ public class Bootstrap implements CommandLineRunner {
 
         bossRepository.save(boss);
 
-        Boss boss2 = new Boss();
+        boss2 = new Boss();
 
         boss2.setName("Jefito");
         boss2.setLastname("Dos");
@@ -61,6 +63,8 @@ public class Bootstrap implements CommandLineRunner {
     }
 
     private void loadEmployees() {
+
+        
 
         System.out.println("Employees created successfully");
     }
