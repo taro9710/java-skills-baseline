@@ -17,13 +17,13 @@ public abstract class Person {
     protected String city;
     protected String country;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column
     protected LocalDate creation;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column
     protected LocalDate update;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column
     protected LocalDate deletion;
 
     public Person() {}
